@@ -101,11 +101,11 @@ if ( defined('GNPUB_PRO_VERSION') ) {
 
     <ul>
     <?php 
-
+    echo apply_filters('gnpub_pro_multilingual_support', '');
   /////// display feed urls, @since 1.0.2 -ca ///////////////////
       $permalinks_enabled = ! empty( get_option( 'permalink_structure' ) );
       $feed_url=esc_url( $permalinks_enabled ? trailingslashit( home_url() ) . 'feed/gn' : add_query_arg( 'feed', 'gn', home_url() ) );
-      echo '<li><input type="text" class="gn-input" value="'. esc_url( $feed_url ) .'" id="gn-feed-0" size="60" readonly>
+      echo '<li><input type="text" class="gn-input" value="'. esc_url( $feed_url ) .'" data-gn-default="'.esc_url( $feed_url ).'" id="gn-feed-0" size="60" readonly>
       <div class="gn-tooltip">
       <button class="gn-btn" onclick="gn_copy('."'gn-feed-0'".')" onmouseout="gn_out('."'gn-feed-0'".')">
         <span class="gn-tooltiptext" id="gn-feed-0-tooltip">Copy URL</span>
@@ -145,7 +145,7 @@ if ( defined('GNPUB_PRO_VERSION') ) {
         }
 
         $gn_category_link = $permalinks_enabled ? trailingslashit( $gn_category_link ) . 'feed/gn' : add_query_arg( 'feed', 'gn', $gn_category_link );
-        echo '<li><input type="text" class="gn-input" value="'.esc_url( $gn_category_link ).'" id="gn-feed-'.esc_attr($category->term_id).'" size="60" readonly>
+        echo '<li><input type="text" class="gn-input" value="'.esc_url( $gn_category_link ).'" data-gn-default="'.esc_url( $gn_category_link ).'" id="gn-feed-'.esc_attr($category->term_id).'" size="60" readonly>
       <div class="gn-tooltip">
       <button class="gn-btn" onclick="gn_copy('."'gn-feed-".esc_attr($category->term_id)."'".')" onmouseout="gn_out('."'gn-feed-".esc_attr($category->term_id)."'".')">
         <span class="gn-tooltiptext" id="gn-feed-'.esc_attr($category->term_id).'-tooltip">'. esc_html__( 'Copy URL', 'gn-publisher' ) .'</span>

@@ -1,3 +1,8 @@
+= 1.5.18 - (08 November 2024) =
+
+* Fixed : Sitemap is not working for multilingual translatepress #105
+* Test : Tested with WordPress 6.7 #106
+
 = 1.5.17 - (12 September 2024) =
 
 * Fixed : Ping Functionality Not Working. #102

@@ -2,9 +2,9 @@
 Contributors: gnpublisher
 Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 5.4
-Stable tag: 1.5.17
+Stable tag: 1.5.18
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,6 +89,11 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 
 == Changelog ==
 
+= 1.5.18 - (08 November 2024) =
+
+* Fixed : Sitemap is not working for multilingual translatepress #105
+* Test : Tested with WordPress 6.7 #106
+
 = 1.5.17 - (12 September 2024) =
 
 * Fixed : Ping Functionality Not Working. #102
@@ -131,12 +136,5 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 * Added : Reader Revenue Manager support #73
 * Feature : Add 'rss2_item' Action Hook to Feed Template for Media Content #67
 * Fixed : The network deactivate button is not working on the wp-multisite #75
-
-
-= 1.5.10 - (12 September 2023) =
-
-* Tweak : Displayed proper message on license activation/deactivation timeout #64
-* Fixed : Multi language compatibility in multisite #68
-* Feature : Added compatibility for Molongui author profile plugin #70
 
 Full changelog available at [changelog.txt](https://plugins.svn.wordpress.org/gn-publisher/trunk/changelog.txt)
