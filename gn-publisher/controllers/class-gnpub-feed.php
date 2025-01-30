@@ -138,13 +138,37 @@ class GNPUB_Feed {
 		// if ( empty( $use_featured_image ) ) {
 		// 	return $content;
 		// }
-
-		$featured_image_url = $this->get_original_feature_image_url( get_the_ID() );
-
-		if ( $featured_image_url ) {
-			$content = "<figure><img src=\"{$featured_image_url}\" class=\"type:primaryImage\" /></figure>" . $content;
+		$post_id = get_the_ID();
+		$featured_image_url = $this->get_original_feature_image_url( $post_id );
+		$caption = $description = $alt = '';
+		$gnpub_options = get_option( 'gnpub_new_options', []);
+		$show_info_featured_img = isset($gnpub_options['gnpub_show_info_featured_img'])?$gnpub_options['gnpub_show_info_featured_img']:false;
+		if($show_info_featured_img){
+			$attachment_id = get_post_thumbnail_id( $post_id );
+			if ( $attachment_id ) {
+				$attachment = get_post( $attachment_id );
+				if ( $attachment ) {
+					$description = $attachment->post_content;
+					$caption = $attachment->post_excerpt;
+				}
+				$alt = get_post_meta($attachment_id, '_wp_attachment_image_alt', true);
+			}
 		}
-
+		
+		if ( $featured_image_url ) {
+			$content = "<figure><img src=\"{$featured_image_url}\" class=\"type:primaryImage\"";
+			if($alt){
+				$content .= " alt=\"{$alt}\"";
+			}
+			$content .= " />";
+			if($caption){
+				$content .= "<figcaption>{$caption}</figcaption>";
+			}
+			if($description){
+				$content .= "<div class=\"image-description\">{$description}</div>";
+			}
+			$content .= "</figure>" . $content;
+		}
 		return $content;
 	}
 

@@ -1,3 +1,13 @@
+= 1.5.19 - (30 January 2025) =
+
+* Feature : Added caption tag in image  #108
+* Feature : Added relavent schema for news #109
+* Feature : Immediate notification of news publish #110
+* Feature : Google news follow #111
+* Improved : Sitemap improvement #113
+* Feature : Added boarding checklist #114
+* Improvement : New changes for Google News 2025 #112
+
 = 1.5.18 - (08 November 2024) =
 
 * Fixed : Sitemap is not working for multilingual translatepress #105

@@ -63,7 +63,12 @@ class GNPUB_Settings {
 									'gnpub_google_rev_snippet' => '',
 									'gnpub_google_rev_snippet_name' => '',
 									'gnpub_enable_google_revenue_manager' => false,
+									'gnpub_show_info_featured_img'=>false,
 									'gnpub_enable_feed_support' => array('post' => 1),
+									'gnpub_enable_news_article_schema' => false,
+									'gnpub_enable_google_news_follow' => false,
+									'gnpub_enable_google_news_follow_text' => 'Follow us on',
+									'gnpub_enable_google_news_follow_link' => '',
 								);
 			$gnpub_options= get_option( 'gnpub_new_options', $gnpub_defaults);
 			$option_update=false;
@@ -87,6 +92,15 @@ class GNPUB_Settings {
 					$option_update=true;
 				}else{
 					$gnpub_options['gnpub_enable_google_revenue_manager']= false;
+				}
+
+				if ( isset( $_POST['gnpub_show_info_featured_img'] ) ) {
+					$gnpub_options['gnpub_show_info_featured_img'] = true;
+					$option_update=true;
+				}
+				else{
+					$gnpub_options['gnpub_show_info_featured_img'] = false;
+					$option_update=true;
 				}
 				if ( isset( $_POST['gnpub_enable_copy_protection'] ) ) {
 					$gnpub_options['gnpub_enable_copy_protection']= true;
@@ -143,6 +157,28 @@ class GNPUB_Settings {
 					$gnpub_options['gnpub_exclude_categories'] = [];
 					$option_update = true;
 
+				}
+
+				if ( isset( $_POST['gnpub_enable_news_article_schema'] ) ) {
+					$gnpub_options['gnpub_enable_news_article_schema'] = true;
+					$option_update=true;
+				}else{
+					$gnpub_options['gnpub_enable_news_article_schema']= false;
+				}
+
+				if ( isset( $_POST['gnpub_enable_google_news_follow'] ) ) {
+					$gnpub_options['gnpub_enable_google_news_follow'] = true;
+					$option_update=true;
+				}else{
+					$gnpub_options['gnpub_enable_google_news_follow']= false;
+				}
+
+				if ( isset( $_POST['gnpub_enable_google_news_follow_text'] ) ) {
+					$gnpub_options['gnpub_enable_google_news_follow_text'] = sanitize_text_field( wp_unslash( $_POST['gnpub_enable_google_news_follow_text'] ) );
+				}
+
+				if ( isset( $_POST['gnpub_enable_google_news_follow_link'] ) ) {
+					$gnpub_options['gnpub_enable_google_news_follow_link'] = sanitize_text_field( wp_unslash( $_POST['gnpub_enable_google_news_follow_link'] ) );
 				}
 
 			}

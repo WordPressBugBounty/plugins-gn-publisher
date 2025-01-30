@@ -145,6 +145,27 @@ function gn_copy(id) {
 
 });
 
+  $(document).on('change', '#gnpub_enable_google_news_follow', function(e){
+    if( $(this).is(':checked') ) {
+      $('.gnpub-google-news-button-opts').show();
+    }else{
+      $('.gnpub-google-news-button-opts').hide();
+    }
+  });
+
+  $(document).on('keyup', '#gnpub_enable_google_news_follow_text', function(e){
+    let newsText = $(this).val();
+    $('#gnpub-gnfollow-shortcode-follow-text').text(newsText);
+  });
+
+  $(document).on('keyup', '#gnpub_enable_google_news_follow_link', function(e){
+    let newsLink = $(this).val();
+    if ( newsLink.length == 0 ){
+      newsLink   = '#';  
+    }
+    $('#gnpub-gnfollow-shortcode-wrapper a').attr('href', newsLink);
+  });
+
   });
 
   function gnIsEmail(email) {

@@ -108,7 +108,7 @@ div#gn-upgrade .button-gnp-ugrade {
   margin: 20px;
   color: #fff;
   border-radius: 4px;
-  background-color: #ec407a;
+  background-color: #e93557;
   border: none;
   padding: 20px;
   transition: all 0.5s;
@@ -452,4 +452,107 @@ div#gn-upgrade .button-gnp-ugrade {
 }
 .gnpub-show{
     display: block;
+}
+.gnpub-hover-pointer:hover{
+  cursor: pointer;
+}
+.gnpub-index-tab-heading{
+  font-weight: 600;
+  display: inline-flex;
+  align-items: baseline;
+}
+.gnpub-index-tab-label{
+  float: left; 
+  clear: both;
+}
+.gnpub-index-tab-settings-list{
+  display: inline-block; 
+  width: 100%;
+}
+.gnpub-index-tab-field{
+  float: right; 
+  width: 75%; 
+  padding-bottom: 10px;
+}
+.gnpub-index-tab-manual-label{
+  padding: 8px 0px; 
+  display: block;
+  font-weight: 600;
+}
+.gnpub-indexing-response-box{
+  background: #fff;
+  padding: 18px 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+.gnpub-indexing-response-status{
+  color: #bb2b2b;
+}
+.gnpub-indexing-response-box .gnpub-indexing-response-status{
+  font-size: 24px;
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+#gnpub-indexing-giapi-response-body{
+  display:none;
+}
+#gnpub-indexing-giapi-response-body.ready{
+  display:block;
+}
+.gnpub-success-status{
+  color: #46b450;
+}
+.gnpub-fail-status{
+  color: #dc3232;
+}
+.gnpub-status-label{
+  font-weight: 600;
+  font-size: 14px;
+}
+.gn-container{
+  display: flex;
+}
+#gnpub-tab-header-logo{
+  float: left; 
+  width: 60%;
+}
+#gnpub-tab-header-wizard{
+  float: right; 
+  width: 40%;
+  margin-top: 25px;
+}
+#gnpub-tab-header-wizard span{
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  color: black;
+}
+.gnpub-finish-setup-btn{
+  background: #e93557;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 6px 9px;
+  font-weight: 600;
+  border-radius: 30px;
+  font-size: 14px;
+}
+.gnpub-child-set-options{
+  padding-left: 20px !important;
+  border-left: 3px solid #EEe;
+}
+.gnpub-green{
+  color: green;
+}
+#gnpub-pro-features-list-wrapper{
+  position: relative;
+  left: 170px;
+  text-align: left;
+}
+#gnpub-pro-features-list-wrapper td{
+  padding-right: 20px;
+}
+#gnpub-pro-features-list-wrapper .gnpub-success-status:before{
+  font-size: 25px;
+  margin-left: -10px;
 }

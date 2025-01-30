@@ -4,7 +4,7 @@ Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
 Tested up to: 6.7
 Requires PHP: 5.4
-Stable tag: 1.5.18
+Stable tag: 1.5.19
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,16 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 
 
 == Changelog ==
+
+= 1.5.19 - (30 January 2025) =
+
+* Feature : Added caption tag in image  #108
+* Feature : Added relavent schema for news #109
+* Feature : Immediate notification of news publish #110
+* Feature : Google news follow #111
+* Improved : Sitemap improvement #113
+* Feature : Added boarding checklist #114
+* Improvement : New changes for Google News 2025 #112
 
 = 1.5.18 - (08 November 2024) =
 
