@@ -133,11 +133,6 @@ class GNPUB_Feed {
 			return $content;
 		}
 
-		// $use_featured_image = get_option( 'gnpub_include_featured_image', 1 );
-
-		// if ( empty( $use_featured_image ) ) {
-		// 	return $content;
-		// }
 		$post_id = get_the_ID();
 		$featured_image_url = $this->get_original_feature_image_url( $post_id );
 		$caption = $description = $alt = '';
@@ -156,18 +151,19 @@ class GNPUB_Feed {
 		}
 		
 		if ( $featured_image_url ) {
-			$content = "<figure><img src=\"{$featured_image_url}\" class=\"type:primaryImage\"";
+			$content_img = "<figure><img src=\"{$featured_image_url}\" class=\"type:primaryImage\"";
 			if($alt){
-				$content .= " alt=\"{$alt}\"";
+				$content_img .= " alt=\"{$alt}\"";
 			}
-			$content .= " />";
+			$content_img .= " />";
 			if($caption){
-				$content .= "<figcaption>{$caption}</figcaption>";
+				$content_img .= "<figcaption>{$caption}</figcaption>";
 			}
 			if($description){
-				$content .= "<div class=\"image-description\">{$description}</div>";
+				$content_img .= "<div class=\"image-description\">{$description}</div>";
 			}
-			$content .= "</figure>" . $content;
+			$content_img .= "</figure>";
+			$content = $content_img . $content;
 		}
 		return $content;
 	}
