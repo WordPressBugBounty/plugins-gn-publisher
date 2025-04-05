@@ -56,6 +56,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 
 	<channel>
 		<title><?php gnpub_wp_title_rss(); ?></title>
+		<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 		<link><?php gnpub_feed_channel_link(); ?></link>
 		<description><?php gnpub_bloginfo_rss( 'description' ); ?></description>
 		<language><?php bloginfo_rss( 'language' ); ?></language>

@@ -4,7 +4,7 @@ Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
 Tested up to: 6.7
 Requires PHP: 5.4
-Stable tag: 1.5.20
+Stable tag: 1.5.21
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,11 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 
 
 == Changelog ==
+
+= 1.5.21 - (05 April 2025) =
+
+* Fixed : News Sitemap Not Updating & Category Display Improvement #120
+* Fixed : Error with the Flipboard feed format option #122
 
 = 1.5.20 - (05 February 2025) =
 

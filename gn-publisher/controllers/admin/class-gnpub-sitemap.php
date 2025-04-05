@@ -104,7 +104,7 @@ class GNPUB_Sitemap {
 					<input class="gnpub_checkbox" id="gnpub_news_sitemap_include_post_types_attachment" type="checkbox" name="gnpub_news_sitmap[news_sitemap_include_post_types][attachment]" <?php if(!empty($post_types) && isset($post_types['attachment']) && $post_types['attachment'] == 'attachment'){ echo 'checked="checked"'; } ?> value="attachment" />
 					<label class="gnpub_checkbox" for="gnpub_news_sitemap_include_post_types_attachment"><?php echo esc_html__( 'Media (attachment)', 'gn-publisher' ); ?></label>
 			
-					<h4><?php esc_html__( 'Categories to exclude', 'gn-publisher' ); ?></h4>
+					<h4><?php echo esc_html__( 'Categories to exclude', 'gn-publisher' ); ?></h4>
 					<?php 
 					$categories = get_categories();
 				

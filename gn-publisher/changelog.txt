@@ -1,3 +1,8 @@
+= 1.5.21 - (05 April 2025) =
+
+* Fixed : News Sitemap Not Updating & Category Display Improvement #120
+* Fixed : Error with the Flipboard feed format option #122
+
 = 1.5.20 - (05 February 2025) =
 
 * Fixed : Description Broken After Latest Update – Missing Content in Feed #117
