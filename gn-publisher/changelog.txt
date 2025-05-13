@@ -1,3 +1,8 @@
+= 1.5.22 - (13 May 2025) =
+
+* Fixed : Some WordPress Core feed redirects to attachment URL when GN publisher is active #126
+* Test : Need to test with WordPress 6.8 #124
+
 = 1.5.21 - (05 April 2025) =
 
 * Fixed : News Sitemap Not Updating & Category Display Improvement #120

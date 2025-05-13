@@ -2,9 +2,9 @@
 Contributors: gnpublisher
 Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 5.4
-Stable tag: 1.5.21
+Stable tag: 1.5.22
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,6 +89,11 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 
 == Changelog ==
 
+= 1.5.22 - (13 May 2025) =
+
+* Fixed : Some WordPress Core feed redirects to attachment URL when GN publisher is active #126
+* Test : Need to test with WordPress 6.8 #124
+
 = 1.5.21 - (05 April 2025) =
 
 * Fixed : News Sitemap Not Updating & Category Display Improvement #120
@@ -149,11 +154,5 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 = 1.5.11.1 - (24 November 2023) =
 
 * Fixed : Warning after recent update Version 1.5.11 #79
-
-= 1.5.11 - (23 November 2023) =
-
-* Added : Reader Revenue Manager support #73
-* Feature : Add 'rss2_item' Action Hook to Feed Template for Media Content #67
-* Fixed : The network deactivate button is not working on the wp-multisite #75
 
 Full changelog available at [changelog.txt](https://plugins.svn.wordpress.org/gn-publisher/trunk/changelog.txt)

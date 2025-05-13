@@ -61,7 +61,7 @@ class Gnpub_Rss_Url {
         $name = get_query_var( 'category_name' );
         $page = get_page_by_path( $name );
 
-        if ( ! empty( $page ) ) {
+        if ( ! empty( $page ) &&  $page->post_type === 'page' ) {
             wp_safe_redirect( get_post_comments_feed_link( $page->ID ) );
             die;
         }
