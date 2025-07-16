@@ -1,3 +1,7 @@
+= 1.5.23 - (16 July 2025) =
+
+* Test : Tested upto WordPress 6.8.2
+
 = 1.5.22 - (13 May 2025) =
 
 * Fixed : Some WordPress Core feed redirects to attachment URL when GN publisher is active #126
