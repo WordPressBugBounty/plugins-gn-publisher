@@ -419,6 +419,14 @@ $gnpub_google_rev_snippet = isset($gnpub_options['gnpub_google_rev_snippet']) ? 
 $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_name']) ? $gnpub_options['gnpub_google_rev_snippet_name']: '';
 $gnpub_show_info_featured_img = isset($gnpub_options['gnpub_show_info_featured_img']) ? $gnpub_options['gnpub_show_info_featured_img']: '';
 $gnpub_news_schema = isset( $gnpub_options['gnpub_enable_news_article_schema'] ) ? $gnpub_options['gnpub_enable_news_article_schema']: false;
+$gnpub_apple_news = isset( $gnpub_options['gnpub_apple_news'] ) ? $gnpub_options['gnpub_apple_news']: false;
+$gnpub_apple_news_channel_id = isset( $gnpub_options['gnpub_apple_news_channel_id'] ) ? $gnpub_options['gnpub_apple_news_channel_id']: '';
+$gnpub_apple_news_api_key_id = isset( $gnpub_options['gnpub_apple_news_api_key_id'] ) ? $gnpub_options['gnpub_apple_news_api_key_id']: '';
+$gnpub_apple_news_api_key_secret = isset( $gnpub_options['gnpub_apple_news_api_key_secret'] ) ? $gnpub_options['gnpub_apple_news_api_key_secret']: '';
+$gnpub_apple_opt_class      = 'gnpub-d-none';
+if ( $gnpub_apple_news ) {
+  $gnpub_apple_opt_class    = '';
+}
 
 ?>
 <div id="gn-features" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-features' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
@@ -536,7 +544,7 @@ $gnpub_news_schema = isset( $gnpub_options['gnpub_enable_news_article_schema'] )
         <a class="gn-publisher-pro-btn "  target="_blank" href="https://gnpublisher.com/pricing/#pricing"><?php echo esc_html__('Upgrade to Premium', 'gn-publisher') ?></a>
         </td>
       </tr>
-    
+      <?php do_action( 'gnpub_render_apple_news_compatibility' ); ?>
       </table>
       </p> 
       <p class="submit">

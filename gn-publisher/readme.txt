@@ -4,7 +4,7 @@ Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
 Tested up to: 6.8
 Requires PHP: 5.4
-Stable tag: 1.5.23
+Stable tag: 1.5.24
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,6 +24,9 @@ The plugin addresses common RSS compatiblity issues publishers experience when u
 -  Delayed crawling by Google
 
 After installing, click on the *'Dashboard'* under GN Publisher on your plugins page for additional information about applying and troubleshooting issues related to the Google News Publisher Center.
+
+**New in 1.5.24**
+Compatibility with Apple news publish
 
 **New in 1.5.11**
 Google Reader Revenue Manager support.Reader Revenue Manager provides publisher solutions to deepen audience engagement and convert subscribers or contributors.
@@ -88,6 +91,11 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 
 
 == Changelog ==
+
+= 1.5.24 - (11 September 2025) =
+
+* Feature : Compatibility with Apple news publish #128
+* Fixed : Instant indexing Conflict issue with Directorist - Mailchimp Integration Plugin #134
 
 = 1.5.23 - (16 July 2025) =
 

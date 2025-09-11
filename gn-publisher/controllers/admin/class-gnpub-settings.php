@@ -69,6 +69,10 @@ class GNPUB_Settings {
 									'gnpub_enable_google_news_follow' => false,
 									'gnpub_enable_google_news_follow_text' => 'Follow us on',
 									'gnpub_enable_google_news_follow_link' => '',
+									'gnpub_apple_news' => false,
+									'gnpub_apple_news_channel_id' => '',
+									'gnpub_apple_news_api_key_id' => '',
+									'gnpub_apple_news_api_key_secret' => '',
 								);
 			$gnpub_options= get_option( 'gnpub_new_options', $gnpub_defaults);
 			$option_update=false;
@@ -201,7 +205,20 @@ class GNPUB_Settings {
 				if ( isset( $_POST['gnpub_pp_flipboard_com'] )) {
 					$gnpub_options['gnpub_pp_flipboard_com'] = true;	
 				}
-
+				if ( isset( $_POST['gnpub_apple_news'] )) {
+					$gnpub_options['gnpub_apple_news'] = true;	
+				}else{
+					$gnpub_options['gnpub_apple_news'] = false;	
+				}
+				if ( isset( $_POST['gnpub_apple_news_channel_id'] )) {
+					$gnpub_options['gnpub_apple_news_channel_id'] = sanitize_text_field( wp_unslash ($_POST['gnpub_apple_news_channel_id'] ) );	
+				}
+				if ( isset( $_POST['gnpub_apple_news_api_key_id'] )) {
+					$gnpub_options['gnpub_apple_news_api_key_id'] = sanitize_text_field( wp_unslash( $_POST['gnpub_apple_news_api_key_id'] ) );	
+				}
+				if ( isset( $_POST['gnpub_apple_news_api_key_secret'] )) {
+					$gnpub_options['gnpub_apple_news_api_key_secret'] = sanitize_text_field( wp_unslash( $_POST['gnpub_apple_news_api_key_secret'] ) );	
+				}
 				$option_update = true;
 			}
 

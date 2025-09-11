@@ -538,8 +538,10 @@ div#gn-upgrade .button-gnp-ugrade {
   font-size: 14px;
 }
 .gnpub-child-set-options{
-  padding-left: 20px !important;
   border-left: 3px solid #EEe;
+}
+.gnpub-child-set-options label{
+  padding-left: 20px !important;
 }
 .gnpub-green{
   color: green;

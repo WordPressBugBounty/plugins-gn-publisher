@@ -290,65 +290,101 @@ class GNPUB_Instant_Index {
 	 * @since 1.5.19
 	 * */
 	public function send_to_indexing_api( $url_input, $action ) {
+	    $url_input = (array) $url_input;
+	    $data      = array();
 
-		$url_input 		= (array) $url_input;
+	    // Validate action
+	    if ( ! in_array( $action, [ 'update', 'delete', 'getstatus' ], true ) ) {
+	        return [ 'error' => 'Invalid action. Use "update", "delete", or "getstatus".' ];
+	    }
 
-		$json_key 		=	array();
-		$api_settings 	=	get_option( 'gnpub_google_index_api_settings' );
-		if ( ! empty( $api_settings ) && is_string( $api_settings ) ) {
-			$json_key 	=	json_decode( $api_settings, true );
-			if ( ! empty( $api_settings ) && is_array( $api_settings ) ) {
-				foreach ( $api_settings as $setting_key => $setting_value ) {
-					if ( is_string( $setting_value ) ) {
-						$json_key[$setting_key] 	=	$setting_value;						
-					}
-				}
-			}
-		}
+	    // Ensure autoloader is loaded
+	    if ( ! class_exists( \Google\Client::class ) ) {
+	        $autoload = GNPUB_PATH . 'vendor/autoload.php';
+	        if ( file_exists( $autoload ) ) {
+	            require_once $autoload;
+	        } else {
+	            return [ 'error' => 'Google API autoloader not found. Run "composer install".' ];
+	        }
+	    }
 
-		include_once GNPUB_PATH . 'vendor/autoload.php';
-		$this->client = new Google_Client();
-		$this->client->setAuthConfig( $json_key );
-		$this->client->setConfig( 'base_path', 'https://indexing.googleapis.com' );
-		$this->client->addScope( 'https://www.googleapis.com/auth/indexing' );
-		
-		// Batch request.
-		$this->client->setUseBatch( true );
-		// init google batch and set root URL.
-		$service = new Google_Service_Indexing( $this->client );
-		$batch   = new Google_Http_Batch( $this->client, false, 'https://indexing.googleapis.com' );
-		foreach ( $url_input as $i => $url ) {
-			$post_body = new Google_Service_Indexing_UrlNotification();
-			if ( $action === 'getstatus' ) {
-				$request_part = $service->urlNotifications->getMetadata( array( 'url' => $url ) ); // phpcs:ignore
-			} else {
-				$post_body->setType( $action === 'update' ? 'URL_UPDATED' : 'URL_DELETED' );
-				$post_body->setUrl( $url );
-				$request_part = $service->urlNotifications->publish( $post_body ); // phpcs:ignore
-			}
-			$batch->add( $request_part, 'url-' . $i );
-		}
+	    // Get service account key
+	    $api_settings = get_option( 'gnpub_google_index_api_settings', '' );
+	    if ( empty( $api_settings ) || ! is_string( $api_settings ) ) {
+	        return [ 'error' => 'API settings not configured.' ];
+	    }
 
-		$results   = $batch->execute();
-		
-		$data      = array();
-		$res_count = count( $results );
-		foreach ( $results as $id => $response ) {
-			// Change "response-url-1" to "url-1".
-			$local_id = substr( $id, 9 );
-			if ( is_a( $response, 'Google_Service_Exception' ) ) {
-				$data[ $local_id ] = json_decode( $response->getMessage() );
-			} else {
-				$data[ $local_id ] = (array) $response->toSimpleObject();
-			}
-			if ( $res_count === 1 ) {
-				$data = $data[ $local_id ];
-			}
-		}
+	    $json_key = json_decode( $api_settings, true );
+	    if ( json_last_error() !== JSON_ERROR_NONE || empty( $json_key ) ) {
+	        return [ 'error' => 'Invalid service account JSON key.' ];
+	    }
 
-		$this->log_request( $action );		
-		
-		return $data;
+	    try {
+	        // ✅ Use \Google\Client (modern class)
+	        $client = new \Google\Client();
+	        $client->setAuthConfig( $json_key );
+	        $client->addScope( \Google\Service\Indexing::INDEXING );
+	        $client->setAccessType( 'offline' );
+
+	        // Enable batch mode
+	        $client->setUseBatch( true );
+	        $service = new \Google\Service\Indexing( $client );
+
+	        // ✅ Use $service->createBatch() — recommended way
+	        $batch = $service->createBatch();
+
+	        foreach ( $url_input as $i => $url ) {
+	            $url = esc_url_raw( $url );
+	            if ( ! $url ) {
+	                $data[ $i ] = [ 'error' => 'Invalid URL provided.' ];
+	                continue;
+	            }
+
+	            if ( $action === 'getstatus' ) {
+	                $request = $service->urlNotifications->getMetadata( [ 'url' => $url ] );
+	            } else {
+	                $body = new \Google\Service\Indexing\UrlNotification();
+	                $body->setUrl( $url );
+	                $body->setType( $action === 'update' ? 'URL_UPDATED' : 'URL_DELETED' );
+	                $request = $service->urlNotifications->publish( $body );
+	            }
+
+	            $batch->add( $request, "url-{$i}" );
+	        }
+
+	        // Execute batch
+	        $results = $batch->execute();
+	        $res_count = count( $results );
+
+	        foreach ( $results as $id => $response ) {
+	            $local_id = substr( $id, 9 ); // "response-url-X" → "url-X"
+
+	            if ( is_a( $response, \Google\Service\Exception::class ) ) {
+	                $error = json_decode( $response->getMessage(), true );
+	                $data[ $local_id ] = $error ?: [ 'error' => 'Google API error.' ];
+	            } else {
+	                $data[ $local_id ] = $response->toSimpleObject();
+	            }
+	        }
+
+	        // Return single result if only one
+	        if ( $res_count === 1 ) {
+	            $data = array_values( $data )[0];
+	        }
+
+	    } catch ( Exception $e ) {
+	        return [
+	            'error' => 'Request failed: ' . $e->getMessage()
+	        ];
+	    } catch ( Error $e ) {
+	        return [
+	            'error' => 'Internal error: ' . $e->getMessage()
+	        ];
+	    }
+
+	    $this->log_request( $action );
+
+	    return $data;
 	}
 
 	/**

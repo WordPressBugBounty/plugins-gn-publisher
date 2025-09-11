@@ -1,3 +1,8 @@
+= 1.5.24 - (11 September 2025) =
+
+* Feature : Compatibility with Apple news publish #128
+* Fixed : Instant indexing Conflict issue with Directorist - Mailchimp Integration Plugin #134
+
 = 1.5.23 - (16 July 2025) =
 
 * Test : Tested upto WordPress 6.8.2

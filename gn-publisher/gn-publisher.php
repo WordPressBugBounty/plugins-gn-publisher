@@ -7,7 +7,7 @@
  * Plugin Name: GN Publisher
  * Plugin URI: https://gnpublisher.com/
  * Description: GN Publisher: The easy way to make Google News Publisher compatible RSS feeds.
- * Version: 1.5.23
+ * Version: 1.5.24
  * Author: Chris Andrews
  * Author URI: https://gnpublisher.com/
  * Text Domain: gn-publisher
@@ -40,7 +40,7 @@ function gnpub_feed_bootstrap() {
 		return;
 	}
  
-	define( 'GNPUB_VERSION', '1.5.23' );
+	define( 'GNPUB_VERSION', '1.5.24' );
 	define( 'GNPUB_PATH', plugin_dir_path( __FILE__ ) );
     define( 'GNPUB_URL', plugins_url( '', __FILE__) );
 	define( 'GNPUB_PLUGIN_FILE', __FILE__ );
@@ -57,6 +57,7 @@ function gnpub_feed_bootstrap() {
 	require_once GNPUB_PATH . 'includes/common-helper.php';
 	require_once GNPUB_PATH . 'controllers/admin/class-gnpub-sitemap.php';
 	require_once GNPUB_PATH . 'controllers/admin/class-gnpub-google-news-follow.php';
+	require_once GNPUB_PATH . 'controllers/admin/class-gnpub-apple-news.php';
 
 
 	new GNPUB_Feed();
