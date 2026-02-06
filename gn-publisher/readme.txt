@@ -2,9 +2,9 @@
 Contributors: gnpublisher
 Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 5.4
-Stable tag: 1.5.24
+Stable tag: 1.5.26
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,8 +89,25 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 * PHP 5.4 or greater is required, PHP 7.2 or newer is recommended
 * This plugin is compatible with all MySQL versions supported by WordPress
 
+== Screenshots ==
+
+1. The Dashboard Page
+2. Features provided by GN Publisher
+3. Google news feed setup which shows the sample gn feed urls
+4. Compatibilities available with GN Publisher
+5. Indexing settings page
+6. Status of your settings
 
 == Changelog ==
+
+= 1.5.26 - (05 January 2026) =
+
+* Remove : Removed BFCM Banner #138
+
+= 1.5.25 - (03 December 2025) =
+
+* Added : Added BFCM Banner #136
+* Test : Tested upto WordPress 6.9
 
 = 1.5.24 - (11 September 2025) =
 
