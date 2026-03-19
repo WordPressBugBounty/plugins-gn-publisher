@@ -219,8 +219,8 @@ class GNPUB_Instant_Index {
 			if ( ! isset( $_POST['gnpub_save_index_settings_nonce'] ) ) {
 				return;
 			}
-
-			if ( ! wp_verify_nonce( $_POST['gnpub_save_index_settings_nonce'], 'gnpub_save_index_settings_nonce' ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( ! wp_verify_nonce( wp_unslash( $_POST['gnpub_save_index_settings_nonce'] ), 'gnpub_save_index_settings_nonce' ) ) {
 				return;
 			}
 
@@ -243,6 +243,7 @@ class GNPUB_Instant_Index {
 			
 			if ( isset( $_FILES['gnpub_index_json_file'] ) && ! empty( $_FILES['gnpub_index_json_file']['tmp_name'] ) ) {
 				if ( isset( $_FILES['gnpub_index_json_file']['type'] ) &&  $_FILES['gnpub_index_json_file']['type'] == 'application/json' ) {
+					// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 					$file_contents 	=	sanitize_textarea_field( file_get_contents( $_FILES['gnpub_index_json_file']['tmp_name'] ) );
 					update_option( 'gnpub_google_index_api_settings', $file_contents );
 				}
@@ -267,7 +268,8 @@ class GNPUB_Instant_Index {
 		if ( ! isset( $_POST['gnpub_index_security_nonce'] ) && ! isset( $_POST['url'] ) && ! isset( $_POST['api_action'] ) ) {
 			return; 
 		}
-		if ( ! wp_verify_nonce( $_POST['gnpub_index_security_nonce'], 'gnpub_index_ajax_check_nonce' ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['gnpub_index_security_nonce'] ), 'gnpub_index_ajax_check_nonce' ) ) {
 			return;  
 		}
 		

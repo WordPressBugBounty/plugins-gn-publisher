@@ -16,53 +16,53 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.5.19
  * */
 
-$robots_url 				=	get_home_url().'/robots.txt';
-$robots_response 			=	GNPUB_Status::get_remote_response( $robots_url );
-$robot_status 				=	$robots_response['status'];
-$status_class 				=	'dashicons dashicons-no-alt gnpub-fail-status';
+$gnpub_robots_url 				=	get_home_url().'/robots.txt';
+$gnpub_robots_response 			=	GNPUB_Status::get_remote_response( $gnpub_robots_url );
+$gnpub_robot_status 			=	$gnpub_robots_response['status'];
+$gnpub_status_class 			=	'dashicons dashicons-no-alt gnpub-fail-status';
 
-if ( $robot_status == 'success' ) {
-	$status_class 			=	'dashicons dashicons-yes gnpub-success-status';	
+if ( $gnpub_robot_status == 'success' ) {
+	$gnpub_status_class 		=	'dashicons dashicons-yes gnpub-success-status';	
 }
 
-$news_article_response 	=	GNPUB_Status::check_for_news_schema();
-$schema_status 			=	$news_article_response['status'];
-$schema_class 				=	'dashicons dashicons-no-alt gnpub-fail-status';
+$gnpub_news_article_response 	=	GNPUB_Status::check_for_news_schema();
+$gnpub_schema_status 			=	$gnpub_news_article_response['status'];
+$gnpub_schema_class 			=	'dashicons dashicons-no-alt gnpub-fail-status';
 
-if ( $schema_status == 'success' ) {
-	$schema_class 			=	'dashicons dashicons-yes gnpub-success-status';	
+if ( $gnpub_schema_status == 'success' ) {
+	$gnpub_schema_class 		=	'dashicons dashicons-yes gnpub-success-status';	
 }
 
-$byline_class 				=	'dashicons dashicons-no-alt gnpub-fail-status';
+$gnpub_byline_class 			=	'dashicons dashicons-no-alt gnpub-fail-status';
 
-if ( $schema_status == 'success' && $news_article_response['byline'] == 'yes' ) {
-	$byline_class 			=	'dashicons dashicons-yes gnpub-success-status';	
+if ( $gnpub_schema_status == 'success' && $gnpub_news_article_response['byline'] == 'yes' ) {
+	$gnpub_byline_class 		=	'dashicons dashicons-yes gnpub-success-status';	
 }
 
-$checklist_options 				=	get_option( 'gnpub_setup_wizard_checklist' );
+$gnpub_checklist_options 		=	get_option( 'gnpub_setup_wizard_checklist' );
 
-$robot_chk_box 					=	isset( $checklist_options['gnpub_gn_status_robot'] ) ? $checklist_options['gnpub_gn_status_robot']: false;
-$robot_chk_box_class 			=	'gnpub-setup-wizard-chklist-td ';
-$robot_chk_box_op_class 		=	'gnpub-setup-wizard-add-opacity ';
-if ( $robot_chk_box == true ) {
-	$robot_chk_box_class 		.= 	'gnpub-setup-wizard-chklist-tr-checked';		
-	$robot_chk_box_op_class 	.= 	'gnpub-setup-wizard-chklist-opacity';		
+$gnpub_robot_chk_box 			=	isset( $gnpub_checklist_options['gnpub_gn_status_robot'] ) ? $gnpub_checklist_options['gnpub_gn_status_robot']: false;
+$gnpub_robot_chk_box_class 			=	'gnpub-setup-wizard-chklist-td ';
+$gnpub_robot_chk_box_op_class 		=	'gnpub-setup-wizard-add-opacity ';
+if ( $gnpub_robot_chk_box == true ) {
+	$gnpub_robot_chk_box_class 		.= 	'gnpub-setup-wizard-chklist-tr-checked';		
+	$gnpub_robot_chk_box_op_class 	.= 	'gnpub-setup-wizard-chklist-opacity';		
 }
 
-$news_chk_box 						=	isset( $checklist_options['gnpub_gn_status_nas'] ) ? $checklist_options['gnpub_gn_status_nas']: false;
-$news_chk_box_class 				=	'gnpub-setup-wizard-chklist-td ';
-$news_chk_box_op_class 			=	'gnpub-setup-wizard-add-opacity ';
-if ( $news_chk_box == true ) {
-	$news_chk_box_class 			.= 	'gnpub-setup-wizard-chklist-tr-checked';		
-	$news_chk_box_op_class 		.= 	'gnpub-setup-wizard-chklist-opacity';		
+$gnpub_news_chk_box 					=	isset( $gnpub_checklist_options['gnpub_gn_status_nas'] ) ? $gnpub_checklist_options['gnpub_gn_status_nas']: false;
+$gnpub_news_chk_box_class 				=	'gnpub-setup-wizard-chklist-td ';
+$gnpub_news_chk_box_op_class 			=	'gnpub-setup-wizard-add-opacity ';
+if ( $gnpub_news_chk_box == true ) {
+	$gnpub_news_chk_box_class 			.= 	'gnpub-setup-wizard-chklist-tr-checked';		
+	$gnpub_news_chk_box_op_class 		.= 	'gnpub-setup-wizard-chklist-opacity';		
 }
 
-$byline_chk_box 					=	isset( $checklist_options['gnpub_gn_status_byline'] ) ? $checklist_options['gnpub_gn_status_byline']: false;
-$byline_chk_box_class 			=	'gnpub-setup-wizard-chklist-td ';
-$byline_chk_box_op_class 		=	'gnpub-setup-wizard-add-opacity ';
-if ( $byline_chk_box == true ) {
-	$byline_chk_box_class 		.= 	'gnpub-setup-wizard-chklist-tr-checked';		
-	$byline_chk_box_op_class 	.= 	'gnpub-setup-wizard-chklist-opacity';		
+$gnpub_byline_chk_box 					=	isset( $gnpub_checklist_options['gnpub_gn_status_byline'] ) ? $gnpub_checklist_options['gnpub_gn_status_byline']: false;
+$gnpub_byline_chk_box_class 			=	'gnpub-setup-wizard-chklist-td ';
+$gnpub_byline_chk_box_op_class 		=	'gnpub-setup-wizard-add-opacity ';
+if ( $gnpub_byline_chk_box == true ) {
+	$gnpub_byline_chk_box_class 		.= 	'gnpub-setup-wizard-chklist-tr-checked';		
+	$gnpub_byline_chk_box_op_class 	.= 	'gnpub-setup-wizard-chklist-opacity';		
 }
 
 ?>
@@ -76,38 +76,38 @@ if ( $byline_chk_box == true ) {
 		<tbody>
 
 			<tr class="gnpub-setup-wizard-chklist-tr">
-				<th class="<?php echo esc_attr( $robot_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_robot">
+				<th class="<?php echo esc_attr( $gnpub_robot_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_robot">
 					<label for="gnpub_gn_status_robot" class="gnpub-hover-pointer"><?php echo esc_html__( 'Robots.txt', 'gn-publisher' ); ?></label>
 				</th>
-				<td class="<?php echo esc_attr( $robot_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_robot">
-		          <span class="<?php echo esc_attr( $status_class ); ?>"></span>    
+				<td class="<?php echo esc_attr( $gnpub_robot_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_robot">
+		          <span class="<?php echo esc_attr( $gnpub_status_class ); ?>"></span>    
 		      </td>
-	        <td class="<?php echo esc_attr( $robot_chk_box_class ); ?>" style="float: right;">
-	        	<input class="gnpub-setup-wizard-chklist-chkbox" type="checkbox" name="gnpub_setup_wizard_checklist[gnpub_gn_status_robot]" <?php checked( $robot_chk_box, true ); ?> value="1" data-dont-hide="gnpub_gn_status_robot" data-chk-opt-name="gnpub_gn_status_robot" />
+	        <td class="<?php echo esc_attr( $gnpub_robot_chk_box_class ); ?>" style="float: right;">
+	        	<input class="gnpub-setup-wizard-chklist-chkbox" type="checkbox" name="gnpub_setup_wizard_checklist[gnpub_gn_status_robot]" <?php checked( $gnpub_robot_chk_box, true ); ?> value="1" data-dont-hide="gnpub_gn_status_robot" data-chk-opt-name="gnpub_gn_status_robot" />
 	        </td>
 			</tr>
 
 			<tr class="gnpub-setup-wizard-chklist-tr">
-				<th class="<?php echo esc_attr( $news_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_nas">
+				<th class="<?php echo esc_attr( $gnpub_news_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_nas">
 					<label for="gnpub_gn_status_nas" class="gnpub-hover-pointer"><?php echo esc_html__( 'News Article Schema', 'gn-publisher' ); ?></label>
 				</th>
-				<td class="<?php echo esc_attr( $news_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_nas">
-		          <span class="<?php echo esc_attr( $schema_class ); ?>"></span>    
+				<td class="<?php echo esc_attr( $gnpub_news_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_nas">
+		          <span class="<?php echo esc_attr( $gnpub_schema_class ); ?>"></span>    
 		      </td>
-	        <td class="<?php echo esc_attr( $news_chk_box_class ); ?>" style="float: right;">
-	        	<input class="gnpub-setup-wizard-chklist-chkbox" type="checkbox" name="gnpub_setup_wizard_checklist[gnpub_gn_status_nas]" <?php checked( $news_chk_box, true ); ?> value="1" data-dont-hide="gnpub_gn_status_nas" data-chk-opt-name="gnpub_gn_status_nas" />
+	        <td class="<?php echo esc_attr( $gnpub_news_chk_box_class ); ?>" style="float: right;">
+	        	<input class="gnpub-setup-wizard-chklist-chkbox" type="checkbox" name="gnpub_setup_wizard_checklist[gnpub_gn_status_nas]" <?php checked( $gnpub_news_chk_box, true ); ?> value="1" data-dont-hide="gnpub_gn_status_nas" data-chk-opt-name="gnpub_gn_status_nas" />
 	        </td>
 			</tr>
 
 			<tr class="gnpub-setup-wizard-chklist-tr">
-				<th class="<?php echo esc_attr( $byline_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_byline">
+				<th class="<?php echo esc_attr( $gnpub_byline_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_byline">
 					<label for="gnpub_gn_status_byline" class="gnpub-hover-pointer"><?php echo esc_html__( 'Byline', 'gn-publisher' ); ?></label>
 				</th>
-				<td class="<?php echo esc_attr( $byline_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_byline">
-		          <span class="<?php echo esc_attr( $byline_class ); ?>"></span>    
+				<td class="<?php echo esc_attr( $gnpub_byline_chk_box_op_class ); ?>" data-hide="gnpub_gn_status_byline">
+		          <span class="<?php echo esc_attr( $gnpub_byline_class ); ?>"></span>    
 		      </td>
-	        <td class="<?php echo esc_attr( $byline_chk_box_class ); ?>" style="float: right;">
-	        	<input class="gnpub-setup-wizard-chklist-chkbox" type="checkbox" name="gnpub_setup_wizard_checklist[gnpub_gn_status_byline]" <?php checked( $byline_chk_box, true ); ?> value="1" data-dont-hide="gnpub_gn_status_byline" data-chk-opt-name="gnpub_gn_status_byline" />
+	        <td class="<?php echo esc_attr( $gnpub_byline_chk_box_class ); ?>" style="float: right;">
+	        	<input class="gnpub-setup-wizard-chklist-chkbox" type="checkbox" name="gnpub_setup_wizard_checklist[gnpub_gn_status_byline]" <?php checked( $gnpub_byline_chk_box, true ); ?> value="1" data-dont-hide="gnpub_gn_status_byline" data-chk-opt-name="gnpub_gn_status_byline" />
 	        </td>
 			</tr>
 

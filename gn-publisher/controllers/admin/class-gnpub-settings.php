@@ -66,6 +66,7 @@ class GNPUB_Settings {
 									'gnpub_show_info_featured_img'=>false,
 									'gnpub_enable_feed_support' => array('post' => 1),
 									'gnpub_enable_news_article_schema' => false,
+									'gnpub_delete_data_on_uninstall' => false,
 									'gnpub_enable_google_news_follow' => false,
 									'gnpub_enable_google_news_follow_text' => 'Follow us on',
 									'gnpub_enable_google_news_follow_link' => '',
@@ -168,6 +169,13 @@ class GNPUB_Settings {
 					$option_update=true;
 				}else{
 					$gnpub_options['gnpub_enable_news_article_schema']= false;
+				}
+
+				if ( isset( $_POST['gnpub_delete_data_on_uninstall'] ) ) {
+					$gnpub_options['gnpub_delete_data_on_uninstall'] = true;
+					$option_update=true;
+				}else{
+					$gnpub_options['gnpub_delete_data_on_uninstall']= false;
 				}
 
 				if ( isset( $_POST['gnpub_enable_google_news_follow'] ) ) {

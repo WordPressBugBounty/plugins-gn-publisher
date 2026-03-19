@@ -44,7 +44,7 @@ class GNPUB_Sitemap {
 
 			wp_enqueue_script( 'gn-admin-sitemap-script' );
 
-			wp_enqueue_style( 'gn-admin-sitemap-style', GNPUB_URL . "/assets/css/gn-admin-sitemap{$min}.css", array(), GNPUB_VERSION, );
+			wp_enqueue_style( 'gn-admin-sitemap-style', GNPUB_URL . "/assets/css/gn-admin-sitemap{$min}.css", array(), GNPUB_VERSION );
 			
 		}	
 	}
@@ -157,7 +157,8 @@ class GNPUB_Sitemap {
 		if ( empty( $_POST['security_nonce'] ) ) {
 		   return;
 		}
-		if ( ! wp_verify_nonce( $_POST['security_nonce'], 'gnpub_sitemap_ajax_check_nonce' ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['security_nonce'] ), 'gnpub_sitemap_ajax_check_nonce' ) ) {
 		   return;
 		}
 

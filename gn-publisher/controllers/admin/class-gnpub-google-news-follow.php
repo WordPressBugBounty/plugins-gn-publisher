@@ -30,7 +30,7 @@ class GNPUB_News_Follow {
 	public function admin_init(){
 		
 		if ( ! empty( $_GET['page'] ) ) {
-			
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$current_page 	=	sanitize_text_field( wp_unslash( $_GET['page'] ) );
 			if ( $current_page == 'gn-publisher-settings' ) {
 				$this->add_modal();
@@ -66,7 +66,7 @@ class GNPUB_News_Follow {
 
 			// wp_enqueue_script( 'gn-admin-gnfpllow-script' );
 
-			wp_enqueue_style( 'gn-admin-gnfollow-style', GNPUB_URL . "/assets/css/gn-admin-gnfollow{$min}.css", array(), GNPUB_VERSION, );
+			wp_enqueue_style( 'gn-admin-gnfollow-style', GNPUB_URL . "/assets/css/gn-admin-gnfollow{$min}.css", array(), GNPUB_VERSION );
 			// wp_enqueue_style( 'wp-color-picker' );
         	// wp_enqueue_script( 'wp-color-picker' );	
         	// wp_enqueue_media();
@@ -107,7 +107,7 @@ class GNPUB_News_Follow {
 	        <th><label for="gnpub_enable_google_news_follow" class="gnpub-hover-pointer"><?php echo esc_html__( 'Google News Follow Button', 'gn-publisher' ); ?></label></th>
 	        <td>
 	          <input type="checkbox" name="gnpub_enable_google_news_follow" id="gnpub_enable_google_news_follow" <?php checked( $news_follow, true ); ?> value="1" />
-	          <label for="gnpub_enable_google_news_follow"><?php echo esc_html__( 'Add Google new follow button for your site', 'gn-publisher.' ); ?> &nbsp; <span class="gnpub-span-lrn-more"> <a target="_blank" style="text-decoration:none;" href="https://gnpublisher.com/docs/"><?php echo esc_html__( 'Learn More', 'gn-publisher' ); ?></a></span></label>
+	          <label for="gnpub_enable_google_news_follow"><?php echo esc_html__( 'Add Google new follow button for your site', 'gn-publisher' ); ?> &nbsp; <span class="gnpub-span-lrn-more"> <a target="_blank" style="text-decoration:none;" href="https://gnpublisher.com/docs/"><?php echo esc_html__( 'Learn More', 'gn-publisher' ); ?></a></span></label>
 	          
 	        </td>
 	    </tr>
@@ -363,7 +363,10 @@ class GNPUB_News_Follow {
 			$follow_btn =	self::shortcode_html();
 			?>
 			<div id="gnpub-gnfollow-sticky" class="<?php echo esc_attr( $sticky_class ); ?>">
-				<?php echo $follow_btn; ?>
+				<?php 
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --Reason escaping has been handled in shortcode_html function
+					echo $follow_btn; 
+				?>
 			</div>
 			<?php
 
@@ -385,8 +388,8 @@ class GNPUB_News_Follow {
 		if ( ! isset( $_POST['gnpub_gnfollow_nonce'] ) ) {
 			wp_safe_redirect( $redirect_url );
 		}
-
-		if ( ! wp_verify_nonce( $_POST['gnpub_gnfollow_nonce'], 'gnpub-gnfollow-settings' ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['gnpub_gnfollow_nonce'] ), 'gnpub-gnfollow-settings' ) ) {
 			wp_safe_redirect( $redirect_url );
 		}
 		

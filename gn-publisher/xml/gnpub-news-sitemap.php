@@ -65,6 +65,7 @@ if(!empty($post_types)){
       foreach($get_categories as $categoryids){ 
         $category[] = $categoryids;
       }
+      // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
       $args['tax_query'] = array(
         array(
           'taxonomy' => 'category',
@@ -75,25 +76,13 @@ if(!empty($post_types)){
       );
     }
     $results = get_posts($args);
-    if(isset($post_types['attachment']) && $post_types['attachment'] == 'attachment'){
-      $args1 = array(
-        'post_type' => 'attachment',
-        'post_status' => 'inherit',
-        'posts_per_page' => 10,
-        'orderby'          => 'date',
-        'order'          => 'DESC'
-        );
-      $attachment = new WP_Query($args1);
-      $attachment_list = get_posts($attachment);
-      
-    }
 }
 global $TRP_LANGUAGE;
 $active_languages = gnpub_get_active_language_slugs();
 $xsl_url =  GNPUB_URL . '/xml/gnpub-news-sitemap.xsl';
 header('Content-Type: text/xml'); 
-echo '<?xml version="1.0"  encoding="' . get_bloginfo('charset') . '" ?>'.PHP_EOL;
-echo '<?xml-stylesheet type="text/xsl" href="'.$xsl_url.'" ?>'.PHP_EOL;
+echo '<?xml version="1.0"  encoding="' . esc_attr( get_bloginfo('charset') ) . '" ?>'.PHP_EOL;
+echo '<?xml-stylesheet type="text/xsl" href="'.esc_url( $xsl_url ).'" ?>'.PHP_EOL;
 ?>
 <urlset  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
@@ -111,7 +100,7 @@ echo '<?xml-stylesheet type="text/xsl" href="'.$xsl_url.'" ?>'.PHP_EOL;
    $keywords = strtolower(  trim( implode( ', ', $keywords ), ', ' ) );
     ?> 
       <url>
-        <loc><?php echo apply_filters('gnpubpro_translated_url', get_permalink( $result->ID ) ); ?></loc>
+        <loc><?php echo esc_url( apply_filters('gnpubpro_translated_url', get_permalink( $result->ID ) ) ); ?></loc>
           <news:news>
             <news:publication>
               <news:name><?php echo htmlspecialchars($publication_name);?></news:name>

@@ -108,11 +108,12 @@ class GNPUB_Apple_News {
 			$min = defined ( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 			wp_register_script('gn-admin-applenews-script', GNPUB_URL . "/assets/js/gn-admin-apple-news{$min}.js", array('jquery'), GNPUB_VERSION, true );
-			wp_localize_script('gn-admin-applenews-script', 'gn_script_apple_news_vars', array(
-				'gnpub_apple_news_security_nonce'	=> 	wp_create_nonce( 'gnpub_apple_news_check_nonce' ),
-				'post_id' 							=>	isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0,	
-				)
-			);
+
+			$local_data = [];
+			$local_data['gnpub_apple_news_security_nonce']		=	wp_create_nonce( 'gnpub_apple_news_check_nonce' );
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$local_data['post_id']								=	isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0;
+			wp_localize_script('gn-admin-applenews-script', 'gn_script_apple_news_vars', $local_data );
 
 			wp_enqueue_script( 'gn-admin-applenews-script' );
 
@@ -136,7 +137,7 @@ class GNPUB_Apple_News {
 				foreach ( $post_types as $key => $value ) {
 					add_meta_box( 
 		                'gnpub_apple_news_meta_options', 
-		                esc_html__( 'Apple News', 'schema-and-structured-data-for-wp' ), 
+		                esc_html__( 'Apple News', 'gn-publisher' ), 
 		                array( $this, 'apple_news_meta_callback' ),
 		                $value,
 		                'side', 
@@ -178,8 +179,8 @@ class GNPUB_Apple_News {
 		if ( ! isset( $_POST['gnpub_apple_news_security_nonce'] ) ) {
 			return;
 		}
-
-		if ( ! wp_verify_nonce( $_POST['gnpub_apple_news_security_nonce'], 'gnpub_apple_news_check_nonce' ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['gnpub_apple_news_security_nonce'] ), 'gnpub_apple_news_check_nonce' ) ) {
 			return;
 		}
 
@@ -232,6 +233,7 @@ class GNPUB_Apple_News {
 		$anf['components'][0]['text'] 	=	get_the_title( $post_id );
 
 		$anf['components'][1]['role'] 	=	'body';
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$anf['components'][1]['text'] 	=	wp_strip_all_tags( apply_filters( 'the_content', $post->post_content ) );
 
 		$post_thumbnail 				=	get_the_post_thumbnail_url( $post );

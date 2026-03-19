@@ -53,7 +53,7 @@ class GNPUB_Setup_Wizard {
 
 			wp_enqueue_script( 'gn-admin-setup-wizard-script' );
 
-			wp_enqueue_style( 'gn-admin-setup-wizard-style', GNPUB_URL . "/assets/css/gn-admin-setup-wizard{$min}.css", array(), GNPUB_VERSION, );
+			wp_enqueue_style( 'gn-admin-setup-wizard-style', GNPUB_URL . "/assets/css/gn-admin-setup-wizard{$min}.css", array(), GNPUB_VERSION );
 
 		}
 
@@ -323,7 +323,9 @@ class GNPUB_Setup_Wizard {
 		$response['current']['index'] 	=	0;
 
 		$tab 					=	'';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['wizard_step'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$tab 				=	sanitize_text_field( wp_unslash( $_GET['wizard_step'] ) );	
 			$this->active_tab 	=	$tab;	
 		}
@@ -361,8 +363,8 @@ class GNPUB_Setup_Wizard {
 		if ( ! isset( $_POST['security'] ) ) {
 			wp_safe_redirect( $redirect_url );
 		}
-
-		if ( ! wp_verify_nonce( $_POST['security'], 'gnpub-setup-wizard-nonce' ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['security'] ), 'gnpub-setup-wizard-nonce' ) ) {
 			wp_safe_redirect( $redirect_url );
 		}
 		
@@ -398,7 +400,7 @@ class GNPUB_Setup_Wizard {
 			$wizard_checklist 		=	get_option( 'gnpub_setup_wizard_checklist', gnpub_default_checklist_options_data() );
 			$post_checklist 		=	'';
 			if ( isset( $_POST['gnpub_setup_wizard_checklist'] ) ) {
-
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$post_checklist 	=	wp_unslash( $_POST['gnpub_setup_wizard_checklist'] );
 
 			}
@@ -558,7 +560,8 @@ class GNPUB_Setup_Wizard {
 		if ( ! isset( $_POST['security'] ) ) {
 			wp_send_json_error('You are not authorized to perform this task');
 		}
-		if ( ! wp_verify_nonce( $_POST['security'], 'gnpub_setup_wizard_nonce' ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['security'] ), 'gnpub_setup_wizard_nonce' ) ) {
 			wp_send_json_error('You are not authorized to perform this task');
 		}
 		

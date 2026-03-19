@@ -122,7 +122,7 @@ function gnpub_get_the_excerpt(){
 
             $post_content 	= wp_strip_all_tags( strip_shortcodes( $post->post_content ) ); 
             $post_content 	= preg_replace( '/\[.*?\]/','', $post_content );
-
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
             $excerpt_length = apply_filters( 'excerpt_length', 55 );                        
             $excerpt_more 	= '';
             $excerpt      	= wp_trim_words( $post_content, $excerpt_length, $excerpt_more );

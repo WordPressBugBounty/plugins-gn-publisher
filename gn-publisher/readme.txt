@@ -4,7 +4,7 @@ Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
 Tested up to: 6.9
 Requires PHP: 5.4
-Stable tag: 1.5.26
+Stable tag: 1.5.27
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -59,6 +59,7 @@ Take you Google News Feed experience to next level by using our [GN Publisher PR
 * Compatibility with Flipboard.com
 * Compatibility with PublishPress Authors
 * Compatibility with Translate Press
+* Compatibility with Yandex Turbo
 
 == Frequently Asked Questions ==
 
@@ -99,6 +100,13 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 6. Status of your settings
 
 == Changelog ==
+
+= 1.5.27 - (19 March 2026) =
+
+* Feature : Compatibility with Yandex Turbo #121
+* Fixed : Fatal error: Uncaught Error: Cannot use object of type WP_Tax_Query as array #139
+* Fixed : syntax error unexpected ')' with php 7.2 #141
+* Feature : Added an option to Delete data while uninstalling #142
 
 = 1.5.26 - (05 January 2026) =
 

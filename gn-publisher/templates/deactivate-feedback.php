@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$reasons = array(
+$gnpub_reasons = array(
     	1 => '<li><label><input type="radio" name="gnpub_disable_reason" value="temporary"/>' . esc_html__('It is only temporary', 'gn-publisher') . '</label></li>',
 		2 => '<li><label><input type="radio" name="gnpub_disable_reason" value="stopped"/>' . esc_html__('I stopped using GN Publisher on my site', 'gn-publisher') . '</label></li>',
 		3 => '<li><label><input type="radio" name="gnpub_disable_reason" value="missing"/>' . esc_html__('I miss a feature', 'gn-publisher') . '</label></li>
@@ -16,7 +16,7 @@ $reasons = array(
 		6 => '<li><label><input type="radio" name="gnpub_disable_reason" value="other"/>' . esc_html__('Other reason', 'gn-publisher') . '</label></li>
 		<li><textarea  class="mb-box other" name="gnpub_disable_text[]" placeholder="' . esc_html__('Please specify, if possible', 'gn-publisher') . '"></textarea></li>',
     );
-shuffle($reasons);
+shuffle($gnpub_reasons);
 ?>
 
 
@@ -26,9 +26,9 @@ shuffle($reasons);
 	    <h3><strong><?php echo esc_html__('If you have a moment, please let us know why you are deactivating:', 'gn-publisher'); ?></strong></h3>
 	    <ul>
                 <?php 
-                foreach ($reasons as $reason_escaped){
+                foreach ($gnpub_reasons as $gnpub_reason_escaped){
 					//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped	-- all html inside this variable already escaped above in $reasons variable
-                    echo $reason_escaped;
+                    echo $gnpub_reason_escaped;
                 }
                 ?>
 	    </ul>

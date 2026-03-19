@@ -160,7 +160,7 @@ function gnpub_enqueue_makebetter_email_js() {
 
 add_filter('admin_footer', 'gnpub_add_deactivation_feedback_modal');
 
-
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 function gn_send_query_message() {   
 		    
     if ( ! isset( $_POST['gn_security_nonce'] ) ) {
@@ -216,6 +216,7 @@ function gn_send_query_message() {
 }
 
 // This function is just replica of original sanitize_textarea_field WordPress function to provide backward compatibility
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 function gn_sanitize_textarea_field( $str ) {
 
 if ( is_object( $str ) || is_array( $str ) ) {

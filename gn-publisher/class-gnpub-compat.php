@@ -48,6 +48,7 @@ class GNPUB_Compat {
 		 * 
 		 * @since 1.5.8
 		 */
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		if( in_array( 'no-category-base-wpml/no-category-base-wpml.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && function_exists( 'no_category_base_rewrite_rules' ) ) {
 			$add_rewrite = true;
 		}

@@ -166,6 +166,57 @@ function gn_copy(id) {
     $('#gnpub-gnfollow-shortcode-wrapper a').attr('href', newsLink);
   });
 
+  $(document).on('click', '.gnpub_compatibility_options, .gnpub_compatibility_options_disable', function(e){
+    
+    let isChecked = false;
+    let id = $(this).attr('data-id');
+
+    if ( $('#'+id).is(':checked') ) {
+      isChecked = true;  
+      $('#'+id).prop('checked', true);
+    }
+
+    let currentId = $(this).prop('id');
+    if ( currentId === id + '_link' ) {
+        $(this).text('Please wait...');
+    }
+
+    $.ajax({
+      type: "POST",    
+      url:ajaxurl,                    
+      dataType: "json",
+      data:{
+        action:"gnpub_save_com_options_ajax",
+        option_name:id,
+        option_value:isChecked,
+        security_nonce:gn_script_vars.nonce
+      },
+      success:function(response){                       
+        let inputId = '#' + id;
+        if ( isChecked === true ) {
+          $(inputId).attr('type', 'hidden');
+          $(inputId + '_label').html($(inputId + '_label').attr('data-checked'));
+          $(inputId + '_config').show();
+          $(inputId + '_link').show();
+          $(inputId + '_link').text('Disable');
+        }else{
+          $(inputId).show();
+          $(inputId).attr('type', 'checkbox');
+          $(inputId).removeAttr('checked');
+          $(inputId + '_label').html($(inputId + '_label').attr('data-unchecked'));
+          $(inputId + '_config').hide();
+          $(inputId + '_link').hide();
+          $(this).text('Disable');
+          
+        }
+      },
+      error: function(response){                    
+      console.log(response);
+      }
+    }); 
+
+  });
+
   });
 
   function gnIsEmail(email) {
@@ -185,3 +236,39 @@ function gnpubDisplayProBtn() {
     }, 3000);
   }
 }
+
+function gnpub_model_init(model_id=null, button_id=null,close_id=null)
+{
+    if(!model_id || !button_id || !close_id)
+    {
+      return '';
+    }
+    console.log(button_id);
+  // Get the modal
+  var modal = document.getElementById(model_id);
+
+  // Get the button that opens the modal
+  var btn = document.getElementById(button_id);
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementById(close_id);
+
+  // When the user clicks the button, open the modal
+  if(btn) {
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }}
+  if(span) {
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }}
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+gnpub_model_init('gnpub_modal_yandex_turbo','gnpub_yandex_turbo_config','gnpub_yandex_turbo_close');

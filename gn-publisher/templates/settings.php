@@ -419,6 +419,7 @@ $gnpub_google_rev_snippet = isset($gnpub_options['gnpub_google_rev_snippet']) ? 
 $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_name']) ? $gnpub_options['gnpub_google_rev_snippet_name']: '';
 $gnpub_show_info_featured_img = isset($gnpub_options['gnpub_show_info_featured_img']) ? $gnpub_options['gnpub_show_info_featured_img']: '';
 $gnpub_news_schema = isset( $gnpub_options['gnpub_enable_news_article_schema'] ) ? $gnpub_options['gnpub_enable_news_article_schema']: false;
+$gnpub_delete_data = isset( $gnpub_options['gnpub_delete_data_on_uninstall'] ) ? $gnpub_options['gnpub_delete_data_on_uninstall']: false;
 $gnpub_apple_news = isset( $gnpub_options['gnpub_apple_news'] ) ? $gnpub_options['gnpub_apple_news']: false;
 $gnpub_apple_news_channel_id = isset( $gnpub_options['gnpub_apple_news_channel_id'] ) ? $gnpub_options['gnpub_apple_news_channel_id']: '';
 $gnpub_apple_news_api_key_id = isset( $gnpub_options['gnpub_apple_news_api_key_id'] ) ? $gnpub_options['gnpub_apple_news_api_key_id']: '';
@@ -440,7 +441,7 @@ if ( $gnpub_apple_news ) {
         <th><label for="gnpub_enable_news_article_schema" class="gnpub-hover-pointer"><?php esc_html_e( 'News Article Schema', 'gn-publisher' ); ?></label></th>
         <td>
           <input type="checkbox" name="gnpub_enable_news_article_schema" id="gnpub_enable_news_article_schema" <?php checked( $gnpub_news_schema, true ); ?> value="1" />
-          <label for="gnpub_enable_news_article_schema"><?php esc_html_e( 'Add NewsArticle schema on every post', 'gn-publisher.' ); ?> &nbsp; <span class="gnpub-span-lrn-more"> <a target="_blank" style="text-decoration:none;" href="https://gnpublisher.com/docs/"><?php esc_html_e( 'Learn More', 'gn-publisher' ); ?></a></span></label>
+          <label for="gnpub_enable_news_article_schema"><?php esc_html_e( 'Add NewsArticle schema on every post', 'gn-publisher' ); ?> &nbsp; <span class="gnpub-span-lrn-more"> <a target="_blank" style="text-decoration:none;" href="https://gnpublisher.com/docs/"><?php esc_html_e( 'Learn More', 'gn-publisher' ); ?></a></span></label>
           
         </td>
       </tr>
@@ -448,7 +449,7 @@ if ( $gnpub_apple_news ) {
         <th><label for="gnpub_enable_google_revenue_manager" class="gnpub-hover-pointer"><?php esc_html_e( 'Google Revenue Manager', 'gn-publisher' ); ?></label></th>
         <td>
           <input type="checkbox" name="gnpub_enable_google_revenue_manager" id="gnpub_enable_google_revenue_manager" <?php checked( $gnpub_enable_google_revenue_manager, true ); ?> value="1" />
-          <label for="gnpub_enable_google_revenue_manager"><?php esc_html_e( 'Increase revenue and improve reader engagement.', 'gn-publisher.' ); ?> &nbsp; <span class="gnpub-span-lrn-more"> <a target="_blank" style="text-decoration:none;" href="https://gnpublisher.com/docs/knowledge-base/how-to-enable-google-revenue-manager/"><?php esc_html_e( 'Learn More', 'gn-publisher' ); ?></a></span></label>
+          <label for="gnpub_enable_google_revenue_manager"><?php esc_html_e( 'Increase revenue and improve reader engagement.', 'gn-publisher' ); ?> &nbsp; <span class="gnpub-span-lrn-more"> <a target="_blank" style="text-decoration:none;" href="https://gnpublisher.com/docs/knowledge-base/how-to-enable-google-revenue-manager/"><?php esc_html_e( 'Learn More', 'gn-publisher' ); ?></a></span></label>
           
         </td>
       </tr>
@@ -468,7 +469,7 @@ if ( $gnpub_apple_news ) {
         <th><label for="gnpub_show_info_featured_img" class="gnpub-hover-pointer"><?php esc_html_e( 'Show info for Featured Image', 'gn-publisher' ); ?></label></th>
         <td>
         <input type="checkbox" name="gnpub_show_info_featured_img" id="gnpub_show_info_featured_img" class="gnpub_show_info_featured_img" <?php checked( $gnpub_show_info_featured_img, true ); ?> value="1" />
-        <label for="gnpub_show_info_featured_img"><?php esc_html_e( 'This will show additional data for featured image like caption , alt text , description etc (if available)', 'gn-publisher.' ); ?></label>
+        <label for="gnpub_show_info_featured_img"><?php esc_html_e( 'This will show additional data for featured image like caption , alt text , description etc (if available)', 'gn-publisher' ); ?></label>
         </td>
       </tr> 
       <?php do_action('gnpub_sitemap_form');  ?>      
@@ -486,14 +487,22 @@ if ( $gnpub_apple_news ) {
         <input type="checkbox" name="gnpub-show-upgrd-toprem-btn-fch" class="gnpub-show-upgrd-toprem-btn-fch" id="gnpub-exclude-cat-from-feed"/>
         <a class="gn-publisher-pro-btn "  target="_blank" href="https://gnpublisher.com/pricing/#pricing"><?php echo esc_html__('Upgrade to Premium', 'gn-publisher') ?></a>
         </td>
-      </tr>
-      <?php do_action( 'gnpub_render_google_news_follow' ); ?>     
-
+      </tr>  
       <?php } else { 
      do_action('gnpub_pro_setup_form');
     
     } 
+
+    do_action( 'gnpub_render_google_news_follow' );
     ?>
+      <tr>
+        <th style="padding-top: 30px;"><label for="gnpub_delete_data_on_uninstall" class="gnpub-hover-pointer"><?php esc_html_e( 'Remove Data On Uninstall', 'gn-publisher' ); ?></label></th>
+        <td style="padding-top: 30px;">
+          <input type="checkbox" name="gnpub_delete_data_on_uninstall" id="gnpub_delete_data_on_uninstall" <?php checked( $gnpub_delete_data, true ); ?> value="1" />
+          <label for="gnpub_delete_data_on_uninstall"><?php echo esc_html__( 'This will remove all of its data when the plugin is deleted', 'gn-publisher' ); ?></label>
+          
+        </td>
+      </tr>  
     </table>
     </p>
     <p>
@@ -545,6 +554,7 @@ if ( $gnpub_apple_news ) {
         </td>
       </tr>
       <?php do_action( 'gnpub_render_apple_news_compatibility' ); ?>
+      <?php do_action( 'gnpub_render_yandex_turbo_compatibility' ); ?>
       </table>
       </p> 
       <p class="submit">
@@ -553,6 +563,9 @@ if ( $gnpub_apple_news ) {
         <input type="submit" name="save_gnpub_settings" id="submit" class="button button-primary" value="<?php esc_html_e( 'Save Changes', 'gn-publisher' ); ?>" />
       </p>
   </form> 
+  <?php
+  do_action( 'gnpub_render_compatibility_modals' );
+  ?>
   <?php } else { 
      do_action('gnpub_pro_compat_form');
     

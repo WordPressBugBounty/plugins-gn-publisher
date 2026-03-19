@@ -15,7 +15,7 @@ class GNPUB_Feed {
 	/**
 	 * This is used in the feed URL to select the GN Publisher feed.
 	 */
-	const FEED_ID = ['gn', 'flipboard'];
+	const FEED_ID = ['gn', 'flipboard', 'gnturbo'];
 
 	/**
 	 * This text will be present in the Google FeedFetcher user-agent string, used
@@ -75,11 +75,15 @@ class GNPUB_Feed {
 		$feedid = gnpub_get_requested_feedid();
 		$gnpub_options = get_option( 'gnpub_new_options' );
 		$flipboard_com = isset($gnpub_options['gnpub_pp_flipboard_com'])?$gnpub_options['gnpub_pp_flipboard_com']:false;
+		$gnpub_yandex_turbo = isset($gnpub_options['gnpub_yandex_turbo'])?$gnpub_options['gnpub_yandex_turbo']:false;
 		if($feedid == 'flipboard' && true == $flipboard_com){
 			load_template( GNPUB_PATH . 'templates/flipboard-news-feed.php' );
 		}
 		if($feedid == 'gn'){
 			load_template( GNPUB_PATH . 'templates/google-news-feed.php' );
+		}
+		if($feedid == 'gnturbo' && true == $gnpub_yandex_turbo){
+			load_template( GNPUB_PATH . 'templates/yandex-turbo-feed.php' );
 		}
 	}
 
