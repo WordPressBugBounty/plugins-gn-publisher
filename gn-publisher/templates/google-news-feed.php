@@ -3,8 +3,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $last_deactivation = get_option( 'gnpub_last_deactivation', 0 );
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $last_activation = get_option( 'gnpub_last_activation', 0 );
 
 /**
@@ -35,6 +36,7 @@ echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) )
  * @param string $context Type of feed. Possible values include 'rss2', 'rss2-comments',
  *                        'rdf', 'atom', and 'atom-comments'.
  */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 do_action( 'rss_tag_pre', 'rss2' );
 ?>
 <rss version="2.0"
@@ -49,6 +51,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 	 *
 	 * @since 2.0.0
 	 */
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	do_action( 'rss2_ns' );
 	echo '>';
 	?> 
@@ -59,34 +62,45 @@ do_action( 'rss_tag_pre', 'rss2' );
 		<link><?php gnpub_feed_channel_link(); ?></link>
 		<description><?php gnpub_bloginfo_rss( 'description' ); ?></description>
 		<lastBuildDate><?php
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 			$date = get_lastpostmodified( 'GMT' );
 			echo $date ? esc_html( mysql2date( 'D, d M Y H:i:s +0000', $date, false ) ) : esc_html( gmdate( 'r' ) );
 		?></lastBuildDate>
 		<language><?php bloginfo_rss( 'language' ); ?></language>
-		<sy:updatePeriod> <?php $duration = 'hourly'; echo esc_html( apply_filters( 'rss_update_period', $duration ) );?> </sy:updatePeriod>
-		<sy:updateFrequency> <?php $frequency = '1'; echo esc_html( apply_filters( 'rss_update_frequency', $frequency ) );?> </sy:updateFrequency>
+		<sy:updatePeriod> 
+			<?php 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$duration = 'hourly'; echo esc_html( apply_filters( 'rss_update_period', $duration ) );
+			?> 
+		</sy:updatePeriod>
+		<sy:updateFrequency> 
+			<?php 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$gnpub_frequency = '1'; echo esc_html( apply_filters( 'rss_update_frequency', $frequency ) );
+			?> 
+		</sy:updateFrequency>
 		<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
 		<generator>GN Publisher v<?php echo esc_html(GNPUB_VERSION);?> https://wordpress.org/plugins/gn-publisher/</generator>
 <?php
-	$feed_support_flag = apply_filters('gnpub_enable_feed_support_filter', 0); // create selected post type feeds
-	if($feed_support_flag == 0){
+	$gnpub_feed_support_flag = apply_filters('gnpub_enable_feed_support_filter', 0); // create selected post type feeds
+	if($gnpub_feed_support_flag == 0){
 		while ( have_posts() ) :
 			the_post();
 			$post_id = get_the_ID();
-			$mod_counter = intval( get_post_meta( $post_id, 'gnpub_modified_count', true ) );
-			$last_modified = get_post_modified_time( 'U', true );
-			if ( $last_modified > $last_deactivation && $last_modified < $last_activation ) {
-				$mod_counter++;
+			$gnpub_mod_counter = intval( get_post_meta( $post_id, 'gnpub_modified_count', true ) );
+			$gnpub_last_modified = get_post_modified_time( 'U', true );
+			if ( $gnpub_last_modified > $last_deactivation && $gnpub_last_modified < $last_activation ) {
+				$gnpub_mod_counter++;
 			}
 
-			if ( $mod_counter ) {
-				$pub_date_object = new DateTime;
-				$pub_date_object->setTimestamp( get_post_time( 'U', true ) );
-				$pub_date_object->modify( '+' . $mod_counter . ' seconds' );
+			if ( $gnpub_mod_counter ) {
+				$gnpub_pub_date_object = new DateTime;
+				$gnpub_pub_date_object->setTimestamp( get_post_time( 'U', true ) );
+				$gnpub_pub_date_object->modify( '+' . $gnpub_mod_counter . ' seconds' );
 
-				$pub_date = gmdate( 'D, d M Y H:i:s +0000', $pub_date_object->getTimestamp() );
+				$gnpub_pub_date = gmdate( 'D, d M Y H:i:s +0000', $gnpub_pub_date_object->getTimestamp() );
 			} else {
-				 $pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );
+				 $gnpub_pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );
 
 			}
 
@@ -95,7 +109,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 			<item>
 				<title><?php gnpub_the_title_rss(); ?></title>
 				<link><?php gnpub_feed_post_link(get_the_permalink()); ?></link>
-				<pubDate><?php echo esc_attr( $pub_date ); ?></pubDate>
+				<pubDate><?php echo esc_attr( $gnpub_pub_date ); ?></pubDate>
 				<?php $gnpub_authors_escaped = '<dc:creator><![CDATA['. esc_html( get_the_author() ) .']]></dc:creator>'; ?>
 				<?php $gnpub_authors_escaped = apply_filters('gnpub_pp_authors_compat',$gnpub_authors_escaped );
 					  $gnpub_authors_escaped = apply_filters('gnpub_molongui_authors_compat',$gnpub_authors_escaped );
@@ -103,20 +117,21 @@ do_action( 'rss_tag_pre', 'rss2' );
 				?>
 				<guid isPermaLink="false"><?php the_guid() ?></guid>
 	<?php 
-	$content = get_the_content_feed( GNPUB_Feed::FEED_ID );
-	$content = gnpub_remove_potentially_dangerous_tags($content);
+	$gnpub_content = get_the_content_feed( GNPUB_Feed::FEED_ID );
+	$gnpub_content = gnpub_remove_potentially_dangerous_tags($gnpub_content);
 
 	if( function_exists( 'gnpub_pp_translate' ) )
-		$content = gnpub_pp_translate( $content );
-	 if ( $content && strlen( $content ) > 0 ) : 
+		$gnpub_content = gnpub_pp_translate( $gnpub_content );
+	 if ( $gnpub_content && strlen( $gnpub_content ) > 0 ) : 
 	?>
-				<description><![CDATA[<?php echo wp_trim_words($content,15,'...'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></description>
+				<description><![CDATA[<?php echo wp_trim_words($gnpub_content,15,'...'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></description>
 
-				<content:encoded><![CDATA[<?php echo $content; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></content:encoded>
+				<content:encoded><![CDATA[<?php echo $gnpub_content; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></content:encoded>
 	<?php 		else : ?>
 				<content:encoded><![CDATA[<?php the_excerpt_rss(); ?>]]></content:encoded>
 	<?php 		endif; ?>
 	<?php 		gnpub_rss_enclosure(); 
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			do_action( 'rss2_item',  $post_id);
 	?>
 			</item>

@@ -19,31 +19,32 @@ if( !empty( $_GET['tab'] ) ) {
       <h1><a href="https://gnpublisher.com/" target="_blank"><img  class="gn-logo" src=<?php echo esc_url( GNPUB_URL . '/assets/images/logo.png' ); ?> title="<?php esc_html_e( 'GN Publisher', 'gn-publisher' ); ?>"/></a></h1>
     </div>
     <?php  
-      $total_perc      =  gnpub_setup_wizard_progress_perc();
+      $gnpub_total_perc      =  gnpub_setup_wizard_progress_perc();
     ?>
     <div id="gnpub-tab-header-wizard">
-      <span><?php echo esc_html__( 'Your setup is', 'gn-publisher'). ' '. esc_attr( $total_perc ).esc_html( '% completed', 'gn-publisher'); ?></span>
+      <span><?php echo esc_html__( 'Your setup is', 'gn-publisher'). ' '. esc_attr( $gnpub_total_perc ).esc_html( '% completed', 'gn-publisher'); ?></span>
       <?php 
-      $btn_txt  = 'Finish Setup';
-      if ( $total_perc == 100 ) {
-        $btn_txt  = 'Completed'; 
+      $gnpub_btn_txt  = 'Finish Setup';
+      if ( $gnpub_total_perc == 100 ) {
+        $gnpub_btn_txt  = 'Completed'; 
       }
-      $wizard_url   = admin_url('admin.php?page=gnpub-setup-wizard');
+      $gnpub_wizard_url   = admin_url('admin.php?page=gnpub-setup-wizard');
       ?>
-      <a href="<?php echo esc_url( $wizard_url ); ?>"><button class="gnpub-finish-setup-btn"><?php echo esc_html( $btn_txt ) ?></button></a>
+      <a href="<?php echo esc_url( $gnpub_wizard_url ); ?>"><button class="gnpub-finish-setup-btn"><?php echo esc_html( $gnpub_btn_txt ) ?></button></a>
     </div>
   </div>
 <?php 
 if ( defined('GNPUB_PRO_VERSION') ) { 
-  $license_info = get_option("gnpub_pro_upgrade_license"); 
-  $license_key_status = $license_key = '';
-    if(isset($license_info['pro']['license_key'])){
-      $license_key  = $license_info['pro']['license_key'];
-      $replace = ''; for ($i=0; $i < strlen($license_key)-4; $i++) { $replace .= '*'; }
-      $license_key = substr_replace($license_key, $replace, 0, strlen($license_key)-4);
-      $license_key_status = $license_info['pro']['license_key_status'];
+  $gnpub_license_info = get_option("gnpub_pro_upgrade_license"); 
+  $gnpub_license_key_status = $gnpub_license_key = '';
+    if(isset($gnpub_license_info['pro']['license_key'])){
+      $gnpub_license_key  = $gnpub_license_info['pro']['license_key'];
+      // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+      $gnpub_replace = ''; for ($i=0; $i < strlen($gnpub_license_key)-4; $i++) { $gnpub_replace .= '*'; }
+      $gnpub_license_key = substr_replace($gnpub_license_key, $gnpub_replace, 0, strlen($gnpub_license_key)-4);
+      $gnpub_license_key_status = $gnpub_license_info['pro']['license_key_status'];
     } 
-  if($license_key_status != 'active'){
+  if($gnpub_license_key_status != 'active'){
     echo '<div class="gnpu-license-notice">' . esc_html__( 'Thank you for installing ', 'gn-publisher' ) . 
      '<a href="' . esc_url( 'https://gnpublisher.com/' ) . '" target="_blank">' . 
      esc_html__( 'GN PUBLISHER PRO', 'gn-publisher' ) . '</a>, ' . 
@@ -64,7 +65,7 @@ if ( defined('GNPUB_PRO_VERSION') ) {
   <button class="gn-tablinks <?php echo esc_attr( $tab == 'gn-services' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-services')" data-link-id="gn-services"><?php echo esc_html__('Services', 'gn-publisher') ?></button>
   <?php if(defined('GNPUB_PRO_VERSION')){ ?>
     <button class="gn-tablinks gn-license-btn <?php echo esc_attr( $tab == 'gn-license' ? 'active' : ''); ?>" onclick="openTab(event, 'gn-license')" data-link-id="gn-license"><?php echo esc_html__('License', 'gn-publisher') ?> <?php
-    if($license_key_status != 'active'){
+    if($gnpub_license_key_status != 'active'){
     echo '<span style="color: red;">!</span>';
     }  
     ?>
@@ -119,11 +120,12 @@ if ( defined('GNPUB_PRO_VERSION') ) {
 
     <ul>
     <?php 
+    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     echo apply_filters('gnpub_pro_multilingual_support', '');
   /////// display feed urls, @since 1.0.2 -ca ///////////////////
-      $permalinks_enabled = ! empty( get_option( 'permalink_structure' ) );
-      $feed_url=esc_url( $permalinks_enabled ? trailingslashit( home_url() ) . 'feed/gn' : add_query_arg( 'feed', 'gn', home_url() ) );
-      echo '<li><input type="text" class="gn-input" value="'. esc_url( $feed_url ) .'" data-gn-default="'.esc_url( $feed_url ).'" id="gn-feed-0" size="60" readonly>
+      $gnpub_permalinks_enabled = ! empty( get_option( 'permalink_structure' ) );
+      $gnpub_feed_url=esc_url( $gnpub_permalinks_enabled ? trailingslashit( home_url() ) . 'feed/gn' : add_query_arg( 'feed', 'gn', home_url() ) );
+      echo '<li><input type="text" class="gn-input" value="'. esc_url( $gnpub_feed_url ) .'" data-gn-default="'.esc_url( $gnpub_feed_url ).'" id="gn-feed-0" size="60" readonly>
       <div class="gn-tooltip">
       <button class="gn-btn" onclick="gn_copy('."'gn-feed-0'".')" onmouseout="gn_out('."'gn-feed-0'".')">
         <span class="gn-tooltiptext" id="gn-feed-0-tooltip">Copy URL</span>
@@ -138,35 +140,35 @@ if ( defined('GNPUB_PRO_VERSION') ) {
       <?php
       } 
       echo '</li>';
-      $categories = get_categories(); 
-      foreach( $categories as $category ) {
-        $gn_category_link = get_category_link( $category->term_id );
+      $gnpub_categories = get_categories(); 
+      foreach( $gnpub_categories as $gnpub_category ) {
+        $gnpub_category_link = get_category_link( $gnpub_category->term_id );
 
         //Fix for Feed Url link if category is hidden by adding (.) in category base in wordpress permalinks section
-        $gn_category_link = str_replace('/./','/',$gn_category_link); 
+        $gnpub_category_link = str_replace('/./','/',$gnpub_category_link); 
 
         /* Fix Feed Url when user have added custom text in custom permalink (Ex:'lifestyle/%postname%') 
            and Yoast SEO have removed category base 
         */
-        $permalink_structure=get_option('permalink_structure');
-        if ( defined( 'WPSEO_VERSION' ) && is_callable( array( 'WPSEO_Options', 'get' ) ) && WPSEO_Options::get( 'stripcategorybase' ) == true && !empty($permalink_structure)) {
-          $permalink_prepend = "";
-          if(strlen($permalink_structure)>3)
+        $gnpub_permalink_structure=get_option('permalink_structure');
+        if ( defined( 'WPSEO_VERSION' ) && is_callable( array( 'WPSEO_Options', 'get' ) ) && WPSEO_Options::get( 'stripcategorybase' ) == true && !empty($gnpub_permalink_structure)) {
+          $gnpub_permalink_prepend = "";
+          if(strlen($gnpub_permalink_structure)>3)
           {
-            $permalink_array=explode('/%',$permalink_structure);
-            if($permalink_array && count($permalink_array)>1)
+            $gnpub_permalink_array=explode('/%',$gnpub_permalink_structure);
+            if($gnpub_permalink_array && count($gnpub_permalink_array)>1)
             {
-              $permalink_prepend =trailingslashit($permalink_array[0]);
+              $gnpub_permalink_prepend =trailingslashit($gnpub_permalink_array[0]);
             }
           }
-          $gn_category_link = str_replace($permalink_prepend,'/',$gn_category_link);
+          $gnpub_category_link = str_replace($gnpub_permalink_prepend,'/',$gnpub_category_link);
         }
 
-        $gn_category_link = $permalinks_enabled ? trailingslashit( $gn_category_link ) . 'feed/gn' : add_query_arg( 'feed', 'gn', $gn_category_link );
-        echo '<li><input type="text" class="gn-input" value="'.esc_url( $gn_category_link ).'" data-gn-default="'.esc_url( $gn_category_link ).'" id="gn-feed-'.esc_attr($category->term_id).'" size="60" readonly>
+        $gnpub_category_link = $gnpub_permalinks_enabled ? trailingslashit( $gnpub_category_link ) . 'feed/gn' : add_query_arg( 'feed', 'gn', $gnpub_category_link );
+        echo '<li><input type="text" class="gn-input" value="'.esc_url( $gnpub_category_link ).'" data-gn-default="'.esc_url( $gnpub_category_link ).'" id="gn-feed-'.esc_attr($gnpub_category->term_id).'" size="60" readonly>
       <div class="gn-tooltip">
-      <button class="gn-btn" onclick="gn_copy('."'gn-feed-".esc_attr($category->term_id)."'".')" onmouseout="gn_out('."'gn-feed-".esc_attr($category->term_id)."'".')">
-        <span class="gn-tooltiptext" id="gn-feed-'.esc_attr($category->term_id).'-tooltip">'. esc_html__( 'Copy URL', 'gn-publisher' ) .'</span>
+      <button class="gn-btn" onclick="gn_copy('."'gn-feed-".esc_attr($gnpub_category->term_id)."'".')" onmouseout="gn_out('."'gn-feed-".esc_attr($gnpub_category->term_id)."'".')">
+        <span class="gn-tooltiptext" id="gn-feed-'.esc_attr($gnpub_category->term_id).'-tooltip">'. esc_html__( 'Copy URL', 'gn-publisher' ) .'</span>
         Copy
         </button>
       </div></li>';
@@ -237,7 +239,10 @@ do_action('gnpub_pro_cpt_form');
       </label>
       <ul id="links3">
         <li>
-          <?php $last_fetch=( is_null( $last_google_fetch ) ) ? esc_html__( 'None recorded.', 'gn-publisher' ) : $last_google_fetch;
+          <?php 
+          // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+          $last_fetch=( is_null( $last_google_fetch ) ) ? esc_html__( 'None recorded.', 'gn-publisher' ) : $last_google_fetch;
+          // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
          $last_websub_ping = ( is_null( $last_websub_ping ) ) ? esc_html__( 'None recorded.', 'gn-publisher' ) : $last_websub_ping; 
           ?>
          <p><?php echo esc_html__('➔ ', 'gn-publisher') . '<b>' . esc_html__('Most Recent Feedfetcher Fetch: ', 'gn-publisher') . esc_html($last_fetch) . esc_html__(' ( If testing, refresh this page for most recent fetch time )', 'gn-publisher') . '</b><br/>' . esc_html__('If the "Most Recent Feedfetcher fetch" is "None recorded" or the date is more than 24 hours old, it\'s likely that your host or firewall is blocking Google\'s feed crawler, Feedfetcher. Because Feedfetcher is not a well-known bot and doesn\'t follow some of the standard crawler procedures, it is often mistakenly blocked by hosting companies and firewalls. Ask your hosting company or server administrator to whitelist the user-agent "Feedfetcher-Google". Note: If you are using AWS Cloudfront, Amazon does not pass the user-agent through to GN Publisher, so the "Most Recent Feedfetcher Fetch" timestamp will not work for you.', 'gn-publisher'); ?>
@@ -412,8 +417,8 @@ echo esc_html__( '➔ Because of the huge number of ways that publishers, plugin
 </div>
 
 <?php 
-$default_options=array('gnpub_enable_google_revenue_manager'=>false, 'gnpub_enable_google_revenue_manager' => '', "gnpub_google_rev_snippet_name" => "");
-$gnpub_options = get_option( 'gnpub_new_options', $default_options );
+$gnpub_default_options=array('gnpub_enable_google_revenue_manager'=>false, 'gnpub_enable_google_revenue_manager' => '', "gnpub_google_rev_snippet_name" => "");
+$gnpub_options = get_option( 'gnpub_new_options', $gnpub_default_options );
 $gnpub_enable_google_revenue_manager = isset($gnpub_options['gnpub_enable_google_revenue_manager'])?$gnpub_options['gnpub_enable_google_revenue_manager']:false;
 $gnpub_google_rev_snippet = isset($gnpub_options['gnpub_google_rev_snippet']) ?  $gnpub_options['gnpub_google_rev_snippet'] : '';
 $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_name']) ? $gnpub_options['gnpub_google_rev_snippet_name']: '';
@@ -518,8 +523,8 @@ if ( $gnpub_apple_news ) {
   <div id="gn-compatibility" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-compatibility' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
 <?php if(!defined('GNPUB_PRO_VERSION')){ ?>
   <?php
-    $default_options = array('gnpub_pp_flipboard_com' => false );
-    $gnpub_options = get_option( 'gnpub_new_options', $default_options );
+    $gnpub_default_options = array('gnpub_pp_flipboard_com' => false );
+    $gnpub_options = get_option( 'gnpub_new_options', $gnpub_default_options );
   ?>
   <form action="" method="post">
       <p>

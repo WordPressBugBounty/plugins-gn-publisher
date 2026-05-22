@@ -124,6 +124,7 @@ function gnpub_publish_feeds( $feed_urls ) {
     }
 
 	$wp_version = get_bloginfo( 'version' );
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	$user_agent = apply_filters( 'http_headers_useragent', 'WordPress/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
 
 	$args = array(
@@ -178,6 +179,7 @@ function gnpub_feed_channel_link() {
 
 	$url = ''; $host_url = array();
 	if( function_exists( 'get_self_link' ) ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$url = esc_url( apply_filters( 'self_link', get_self_link() ) );
 		$host_url = @parse_url( $url );
 	}

@@ -27,7 +27,7 @@ class GNPUB_Yandex_Turbo {
 		<tr>
 			<th>
 				<label for="gnpub_yandex_turbo" class="gnpub-hover-pointer">
-					<?php _e( 'Yandex Turbo', 'gn-publisher' ); ?>
+					<?php echo esc_html__( 'Yandex Turbo', 'gn-publisher' ); ?>
 				</label>
 			</th>
 			<td>
@@ -45,14 +45,14 @@ class GNPUB_Yandex_Turbo {
 				<label
 					for="gnpub_yandex_turbo"
 					id="gnpub_yandex_turbo_label"
-					data-unchecked="<?php _e( 'Enable yandex turbo compability in GN publisher feeds.', 'gn-publisher' ); ?>"
-					data-checked="<?php _e( '<b>Enabled</b>', 'gn-publisher' ); ?>"
+					data-unchecked="<?php esc_attr_e( 'Enable yandex turbo compability in GN publisher feeds.', 'gn-publisher' ); ?>"
+					data-checked="<?php esc_attr_e( '<b>Enabled</b>', 'gn-publisher' ); ?>"
 				>
 					<?php
 					if ( ! $gnpub_yandex_turbo ) {
-						_e( 'Enable yandex turbo compability in GN publisher feeds.', 'gn-publisher' );
+						echo esc_html__( 'Enable yandex turbo compability in GN publisher feeds.', 'gn-publisher' );
 					} else {
-						_e( '<b>Enabled</b>', 'gn-publisher' );
+						echo '<b>' . esc_html__( 'Enabled', 'gn-publisher' ) . '</b>';
 					}
 					?>
 				</label>
@@ -62,7 +62,7 @@ class GNPUB_Yandex_Turbo {
 					id="gnpub_yandex_turbo_config"
 					<?php if ( ! $gnpub_yandex_turbo ) { echo 'style="display:none;"'; } ?>
 				>
-					<?php _e( 'Configure Settings ', 'gn-publisher' ); ?>
+					<?php echo esc_html__( 'Configure Settings ', 'gn-publisher' ); ?>
 				</a>
 
 				<a
@@ -75,9 +75,15 @@ class GNPUB_Yandex_Turbo {
 				</a>
 
 				<label>
-					<div class="gn-compat-note">
-						<?php _e( 'Use this option when you need feeds for <a href="https://webmaster.yandex.com/" target="_blank"> Yandex Turbo</a>', 'gn-publisher' ); ?>
-					</div>
+				    <div class="gn-compat-note">
+				        <?php
+				        printf(
+				            /* translators: %s: Yandex Turbo link */
+				            __( 'Use this option when you need feeds for %s', 'gn-publisher' ),
+				            '<a href="https://webmaster.yandex.com/" target="_blank">' . esc_html__( 'Yandex Turbo', 'gn-publisher' ) . '</a>'
+				        );
+				        ?>
+				    </div>
 				</label>
 
 			</td>

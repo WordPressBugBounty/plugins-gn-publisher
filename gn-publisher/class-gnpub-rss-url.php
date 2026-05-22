@@ -1,5 +1,7 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 /**
  * Repurpose page feeds for category of same name feeds.
  */

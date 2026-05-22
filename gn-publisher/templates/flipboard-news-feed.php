@@ -4,7 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $last_deactivation = get_option( 'gnpub_last_deactivation', 0 );
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $last_activation = get_option( 'gnpub_last_activation', 0 );
 
 /**
@@ -35,6 +37,7 @@ echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) )
  * @param string $context Type of feed. Possible values include 'rss2', 'rss2-comments',
  *                        'rdf', 'atom', and 'atom-comments'.
  */
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 do_action( 'rss_tag_pre', 'rss2' );
 ?>
 <rss version="2.0"
@@ -50,6 +53,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 	 *
 	 * @since 2.0.0
 	 */
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	do_action( 'rss2_ns' );
 	echo '>';
 	?> 
@@ -63,31 +67,36 @@ do_action( 'rss_tag_pre', 'rss2' );
 <?php
 	while ( have_posts() ) :
 		the_post();
-
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		$mod_counter = intval( get_post_meta( get_the_ID(), 'gnpub_modified_count', true ) );
-
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		$last_modified = get_post_modified_time( 'U', true );
 		if ( $last_modified > $last_deactivation && $last_modified < $last_activation ) {
 			$mod_counter++;
 		}
 
 		if ( $mod_counter ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 			$pub_date_object = new DateTime;
 			$pub_date_object->setTimestamp( get_post_time( 'U', true ) );
 			$pub_date_object->modify( '+' . $mod_counter . ' seconds' );
-
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 			$pub_date = gmdate( 'D, d M Y H:i:s +0000', $pub_date_object->getTimestamp() );
 		} else {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 			 $pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );
 
 		}
 		
 		
-		
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 		$category = get_the_category(get_the_ID());
 		if ( ! empty( $category ) ) {
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 			$namees = array();
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 			foreach ($category  as $nameCategory) {
+				// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 				$namees[] = $nameCategory->name;   
 			  }                                      
 		 }
@@ -105,10 +114,13 @@ do_action( 'rss_tag_pre', 'rss2' );
 				?>
 			
 <?php 
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $content = get_the_content_feed( GNPUB_Feed::FEED_ID );
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $content = gnpub_remove_potentially_dangerous_tags($content);
 
 if( function_exists( 'gnpub_flipboard' ) )
+	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 	$content = gnpub_flipboard( $content );
  if ( $content && strlen( $content ) > 0 ) : 
 ?>

@@ -8,7 +8,7 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 $gn_options = get_option( 'gnpub_new_options' );
 
 if ( ! empty( $gn_options ) &&  is_array( $gn_options ) ) {

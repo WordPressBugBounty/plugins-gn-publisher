@@ -28,7 +28,7 @@ class GNPUB_News_Follow {
 	 * @since 	1.5.19
 	 * */
 	public function admin_init(){
-		
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['page'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$current_page 	=	sanitize_text_field( wp_unslash( $_GET['page'] ) );
@@ -162,7 +162,7 @@ class GNPUB_News_Follow {
 		  			<div>
 						<div id="gnpub-google-news-follow-close" class="gnpub-google_news-follow-close ">&times;</div>
 						<div id="gnpub-google-news-follow-header">
-							<h3><?php echo esc_html__( 'Customize Settings' ); ?></h3>	
+							<h3><?php echo esc_html__( 'Customize Settings', 'gn-publisher' ); ?></h3>	
 						</div>
 						<div id="gnpub-gnfollow-design-wrapper">
 							<h3><?php echo esc_html__( 'Design Appearance', 'gn-publisher' ); ?></h3>
