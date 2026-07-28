@@ -1,3 +1,8 @@
+= 1.5.29 - (28 July 2026) =
+
+* Fixed : http_headers_useragent missing second argument #144
+* Fixed : Warning in debug log #148
+
 = 1.5.28 - (22 May 2026) =
 
 * Test : Tested with wordpress 7.0 and updated readme.txt #146

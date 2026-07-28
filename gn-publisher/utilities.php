@@ -125,13 +125,17 @@ function gnpub_publish_feeds( $feed_urls ) {
 
 	$wp_version = get_bloginfo( 'version' );
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-	$user_agent = apply_filters( 'http_headers_useragent', 'WordPress/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
+	$user_agent = sprintf(
+		'WordPress/%s; %s; PubSubHubbub/WebSub',
+		$wp_version,
+		home_url()
+	);
 
 	$args = array(
 		'timeout' => 100,
 		'limit_response_size' => 1048576,
 		'redirection' => 20,
-		'user-agent' => $user_agent . "; PubSubHubbub/WebSub",
+		'user-agent' => $user_agent,
 		'body' => $post_string,
 		'blocking' => false, // We do not need the response.
 		'headers' => array(
@@ -155,7 +159,7 @@ function gnpub_publish_feeds( $feed_urls ) {
  */
 function gnpub_current_feed_link() {
 
-	$host = @parse_url( home_url() );
+	$host = @wp_parse_url( home_url() );
 
 	if ( isset( $host['host'] ) || isset( $_SERVER['REQUEST_URI'] ) ) {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -181,7 +185,7 @@ function gnpub_feed_channel_link() {
 	if( function_exists( 'get_self_link' ) ) {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$url = esc_url( apply_filters( 'self_link', get_self_link() ) );
-		$host_url = @parse_url( $url );
+		$host_url = @wp_parse_url( $url );
 	}
 
 	if( isset( $host_url['query'] ) ){
@@ -217,7 +221,7 @@ function gnpub_feed_post_link($post_url=null) {
 	{
 		return '';
 	}
-	$tmp_url = @parse_url($post_url);
+	$tmp_url = @wp_parse_url($post_url);
 
 	if(isset($tmp_url['query']))
 	{

@@ -25,7 +25,9 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
-define( 'DONOTCACHEPAGE', true);
+if ( ! defined('DONOTCACHEPAGE') ) {
+	define( 'DONOTCACHEPAGE', true);
+}
 
 echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>';
 /**
@@ -76,7 +78,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 		<sy:updateFrequency> 
 			<?php 
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-			$gnpub_frequency = '1'; echo esc_html( apply_filters( 'rss_update_frequency', $frequency ) );
+			$gnpub_frequency = '1'; echo esc_html( apply_filters( 'rss_update_frequency', $gnpub_frequency ) );
 			?> 
 		</sy:updateFrequency>
 		<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
